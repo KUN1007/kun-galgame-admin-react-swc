@@ -1,12 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useTitle } from '@/hooks/useTitle'
-import type { MenuProps } from 'antd'
-import { Layout, Menu, theme } from 'antd'
+import { Layout, theme, Flex, Button } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { LayoutMenu } from './menu'
 
 const { Content, Sider } = Layout
-
-const items2: MenuProps['items'] = []
 
 const KunLayout: FC = () => {
   useTitle()
@@ -15,29 +14,49 @@ const KunLayout: FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
 
+  const [collapsed, setCollapsed] = useState(false)
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed)
+  }
+
   return (
     <Layout style={{ height: '100dvh' }}>
-      <Sider width={200} style={{ background: colorBgContainer }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-          items={items2}
-        />
-      </Sider>
-      <Layout style={{ padding: '1rem' }}>
-        <Content
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
+      <Flex align="center" style={{ padding: '1rem' }}>
+        <img width={50} src="/favicon.webp" alt="鲲 Galgame" />
+        <h2 style={{ marginLeft: '1rem' }}>鲲 Galgame Admin</h2>
+      </Flex>
+      <Layout>
+        <Sider
+          collapsed={collapsed}
+          width={200}
+          style={{ background: colorBgContainer }}
         >
-          <Outlet />
-        </Content>
+          <LayoutMenu />
+
+          <Button
+            block
+            size="large"
+            type="text"
+            onClick={toggleCollapsed}
+            style={{ marginBottom: 16 }}
+          >
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </Button>
+        </Sider>
+        <Layout style={{ padding: '0 1rem 1rem' }}>
+          <Content
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   )
