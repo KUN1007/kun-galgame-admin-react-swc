@@ -1,9 +1,21 @@
 import { RouterProvider } from 'react-router-dom'
 import router from '@/router'
+import { ConfigProvider } from 'antd'
 
 function App() {
   return (
-    <RouterProvider fallbackElement={<p>Initial Load...</p>} router={router} />
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#218bff',
+        },
+      }}
+    >
+      <RouterProvider
+        fallbackElement={<p>Initial Load...</p>}
+        router={router}
+      />
+    </ConfigProvider>
   )
 }
 

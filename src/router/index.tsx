@@ -1,9 +1,15 @@
 import { RouteObject } from './types'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
-import LoginPage from '@/pages/login'
 import KunLayout from '@/layout'
 
+import LoginPage from '@/pages/login'
+import OverviewPage from '@/pages/overview'
+
 const rootRoutes: RouteObject[] = [
+  {
+    path: '/',
+    element: <Navigate to="/overview" />,
+  },
   {
     path: '/login',
     element: <LoginPage />,
@@ -17,14 +23,14 @@ const rootRoutes: RouteObject[] = [
     element: <KunLayout />,
     children: [
       {
-        path: '/',
-        element: <Navigate to="/home" />,
-      },
-      {
-        path: '*',
-        element: <Navigate to="/404" />,
+        path: '/overview',
+        element: <OverviewPage />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Navigate to="/404" />,
   },
 ]
 
