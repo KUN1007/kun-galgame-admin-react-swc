@@ -5,20 +5,20 @@ import KunLayout from '@/layout'
 
 const rootRoutes: RouteObject[] = [
   {
+    path: '/login',
+    element: <LoginPage />,
+    meta: {
+      title: '登录',
+      key: 'login',
+    },
+  },
+  {
     path: '/',
     element: <KunLayout />,
     children: [
       {
         path: '/',
         element: <Navigate to="/home" />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
-        meta: {
-          title: '登录',
-          key: 'login',
-        },
       },
       {
         path: '*',
