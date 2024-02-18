@@ -1,7 +1,32 @@
-import { FC } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import { Input, Flex, Button } from 'antd'
+import { loginApi } from '@/api/login/login'
 
-const LoginPage: FC = () => {
+interface LoginState {
+  name: string
+  password: string
+}
+
+const LoginPage: React.FC = () => {
+  const [state, setState] = useState<LoginState>({
+    name: '',
+    password: '',
+  })
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setState({ ...state, name: e.target.value })
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setState({ ...state, password: e.target.value })
+
+  const handleLogin = async () => {
+    const userInfo = await loginApi({
+      name: state.name,
+      password: state.password,
+    })
+    console.log(userInfo)
+  }
+
   return (
     <Flex justify="center" align="center" vertical style={{ height: '100dvh' }}>
       <Flex style={{ maxWidth: '24rem', width: '100%' }} gap="middle" vertical>
@@ -17,12 +42,14 @@ const LoginPage: FC = () => {
         </Flex>
 
         <div>
-          <label htmlFor="email">用户名或邮箱</label>
+          <label htmlFor="name">用户名或邮箱</label>
           <Input
             size="large"
             style={{ marginTop: '1rem' }}
-            id="email"
+            id="name"
             placeholder="Basic usage"
+            value={state.name}
+            onChange={handleEmailChange}
           />
         </div>
 
@@ -33,11 +60,13 @@ const LoginPage: FC = () => {
             style={{ marginTop: '1rem' }}
             id="password"
             placeholder="Basic usage"
+            value={state.password}
+            onChange={handlePasswordChange}
           />
         </div>
 
         <div style={{ marginTop: '1rem' }}>
-          <Button size="large" block type="primary">
+          <Button size="large" block type="primary" onClick={handleLogin}>
             登录
           </Button>
         </div>

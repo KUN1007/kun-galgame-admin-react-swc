@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { UserInfo } from '@/store/types'
 
 const initialState: UserInfo = {
@@ -9,16 +10,21 @@ const initialState: UserInfo = {
   token: '',
 }
 
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {
-    setToken: (state, action) => {
-      state.token = action.payload
-    },
-  },
-})
+interface KunPersistUserStore {
+  user: UserInfo
+  setInfo: (info: UserInfo) => void
+  getToken: () => string
+}
 
-export const { setToken } = userSlice.actions
-
-export default userSlice.reducer
+export const useUserStore = create<KunPersistUserStore>()(
+  persist(
+    (set, get) => ({
+      user: initialState,
+      setInfo: (info: UserInfo) => set({ user: info }),
+      getToken: () => get().user.token,
+    }),
+    {
+      name: 'KunAdminUserStore',
+    }
+  )
+)
