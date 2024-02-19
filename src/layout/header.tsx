@@ -6,16 +6,16 @@ export const KunHeader: FC = () => {
   const store = useUserStore()
 
   return (
-    <Flex align="center" justify="space-between" style={{ padding: '1rem' }}>
+    <Flex align="center" justify="space-between" className="p-4">
       <Flex align="center">
         <Image width={50} src="/favicon.webp" alt="鲲 Galgame" />
-        <h2 style={{ marginLeft: '1rem' }}>鲲 Galgame Admin</h2>
+        <h2 className="m-0 ml-4 font-bold">鲲 Galgame Admin</h2>
       </Flex>
 
-      <div>
-        <Avatar src={store.user.avatar} size="large" />
-        <span>{store.user.name}</span>
-      </div>
+      <Flex align="center">
+        <span className="text-lg">{store.user.name}</span>
+        <Avatar className="ml-8 mr-4" src={store.user.avatar} size="large" />
+      </Flex>
     </Flex>
   )
 }

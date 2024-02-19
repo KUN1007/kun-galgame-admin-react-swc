@@ -1,0 +1,19 @@
+@import 'antd/dist/reset.css';
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: theme('borderColor.DEFAULT', currentColor);
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

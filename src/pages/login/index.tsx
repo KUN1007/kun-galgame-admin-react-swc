@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react'
 import { Input, Flex, Button, notification } from 'antd'
 import { loginApi } from '@/api/login/login'
 import { useUserStore } from '@/store/modules/userStore'
-import { useNavigate } from 'react-router-dom'
+import { Form, useNavigate } from 'react-router-dom'
 
 interface LoginState {
   name: string
@@ -32,16 +32,11 @@ const LoginPage: React.FC = () => {
     })
 
     if (userInfo.data) {
-      api['success']({
-        message: '登陆成功, 3 秒后您即将被跳转到面板',
-        placement: 'top',
-        duration: 3,
-        onClose: () => navigate('/overview'),
-      })
+      navigate('/overview')
       userStore.setInfo(userInfo.data)
     } else {
       api['error']({
-        message: '登陆失败',
+        message: userInfo.message,
         placement: 'top',
       })
     }
@@ -50,58 +45,42 @@ const LoginPage: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Flex
-        justify="center"
-        align="center"
-        vertical
-        style={{ height: '100dvh' }}
-      >
-        <Flex
-          style={{ maxWidth: '24rem', width: '100%' }}
-          gap="middle"
-          vertical
-        >
+      <Flex justify="center" align="center" vertical className="h-dvh">
+        <Flex className="w-fall max-w-96" gap="middle" vertical>
           <Flex justify="center" align="center">
-            <h1
-              style={{
-                marginBottom: '30px',
-                color: 'var(--kungalgame-blue-4)',
-              }}
-            >
+            <h1 className="mb-5 text-3xl text-blue-500 font-bold">
               KUN Visualnovel
             </h1>
-            <span
-              style={{ margin: '0.5rem', color: 'var(--kungalgame-red-5)' }}
-            >
-              admin
-            </span>
+            <span className="m-3 text-red-700">admin</span>
           </Flex>
 
-          <div>
+          <Form className="flex flex-col">
             <label htmlFor="name">用户名或邮箱</label>
             <Input
               size="large"
-              style={{ marginTop: '1rem' }}
+              className="my-4"
               id="name"
+              type="text"
+              autoComplete="username"
               placeholder="Basic usage"
               value={state.name}
               onChange={handleEmailChange}
             />
-          </div>
 
-          <div>
             <label htmlFor="password">密码</label>
             <Input
               size="large"
-              style={{ marginTop: '1rem' }}
+              className="mt-4"
               id="password"
+              type="password"
+              autoComplete="password"
               placeholder="Basic usage"
               value={state.password}
               onChange={handlePasswordChange}
             />
-          </div>
+          </Form>
 
-          <div style={{ marginTop: '1rem' }}>
+          <div className="mt-2">
             <Button size="large" block type="primary" onClick={handleLogin}>
               登录
             </Button>
@@ -109,12 +88,7 @@ const LoginPage: React.FC = () => {
         </Flex>
 
         <Flex>
-          <Button
-            size="large"
-            block
-            style={{ marginTop: '5rem' }}
-            type="dashed"
-          >
+          <Button size="large" block className="mt-20" type="dashed">
             主站
           </Button>
         </Flex>
