@@ -1,5 +1,4 @@
 import { FC, useState } from 'react'
-import axios from 'axios'
 import { Input } from 'antd'
 
 const { Search } = Input
@@ -8,16 +7,7 @@ const UserPage: FC = () => {
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState('')
 
-  const onSearch = (value: string) => {
-    axios
-      .get(`YOUR_API_ENDPOINT/${value}`)
-      .then((response) => {
-        setUserData(response.data)
-      })
-      .catch((err) => {
-        setError(err.message)
-      })
-  }
+  const onSearch = (value: string) => {}
 
   return (
     <div>

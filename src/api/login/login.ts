@@ -1,4 +1,4 @@
-import { kunAxios } from '@/utils/service'
+import { fetchPost } from '@/utils/request'
 import type { UserInfo } from '@/store/types'
 
 interface LoginUserInfo {
@@ -6,10 +6,10 @@ interface LoginUserInfo {
   password: string
 }
 
-export const loginApi = (data: LoginUserInfo): Promise<UserInfo> => {
-  return kunAxios({
-    url: '/user/login',
-    method: 'post',
-    data,
-  })
+type LoginResponseData = KUNGalgameResponseData<UserInfo>
+
+export const loginApi = async (
+  data: LoginUserInfo
+): Promise<LoginResponseData> => {
+  return await fetchPost('/user/login', data)
 }
