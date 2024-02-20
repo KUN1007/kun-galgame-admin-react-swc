@@ -1,7 +1,3 @@
-import { getLocalStorage } from '@/utils/localStorage'
-import { requestRefresh } from './requestRefresh'
-import type { UserInfo } from '@/store/types'
-
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 export type FetchOptions = {
@@ -18,11 +14,12 @@ const kunFetchRequest = async <T>(
   const baseUrl = import.meta.env.VITE_KUN_ADMIN_URL
   const fullUrl = `${baseUrl}${url}`
 
-  const userStore = getLocalStorage<UserInfo>('')
+  const userStore = JSON.parse(localStorage.getItem('KunAdminUserStore') || '')
+    .state.user.token
 
   const headers = {
     ...options.headers,
-    Authorization: `Bearer ${userStore?.token}`,
+    Authorization: `Bearer ${userStore}`,
   }
 
   const response = await fetch(fullUrl, { ...options, headers })

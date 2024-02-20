@@ -11,5 +11,7 @@ type LoginResponseData = KUNGalgameResponseData<UserInfo>
 export const loginApi = async (
   data: LoginUserInfo
 ): Promise<LoginResponseData> => {
-  return await fetchPost('/user/login', data)
+  const url = `/user/login`
+  const response = await fetchPost<LoginResponseData>(url, data)
+  return response
 }
