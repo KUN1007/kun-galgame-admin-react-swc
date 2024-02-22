@@ -1,18 +1,38 @@
 import { FC, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Input } from 'antd'
-import { getUserByUid } from '@/api/user/user'
+import { getUserByUid, banUserByUid, unbanUserByUid } from '@/api/user/user'
 
 const { Search } = Input
 
 const UserPage: FC = () => {
-  const [userData, setUserData] = useState('')
+  const [findUid, setFindUid] = useState('')
+  const [banUid, setBanUid] = useState('')
+  const [unbanUid, setUnbanUid] = useState('')
 
   const handleUidChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setUserData(e.target.value)
+    setFindUid(e.target.value)
 
-  const onSearch = async (value: string) => {
+  const handleBanUidChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setBanUid(e.target.value)
+
+  const handleUnbanUidChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setUnbanUid(e.target.value)
+
+  const onSearchUser = async (value: string) => {
     const response = await getUserByUid(parseInt(value))
+
+    console.log(response)
+  }
+
+  const onBanUser = async (value: string) => {
+    const response = await banUserByUid(parseInt(value))
+
+    console.log(response)
+  }
+
+  const onUnbanUser = async (value: string) => {
+    const response = await unbanUserByUid(parseInt(value))
 
     console.log(response)
   }
@@ -22,13 +42,32 @@ const UserPage: FC = () => {
       <h2>请输入用户的 uid</h2>
       <Search
         placeholder="input search text"
-        value={userData}
+        value={findUid}
         onChange={handleUidChange}
-        onSearch={onSearch}
+        onSearch={onSearchUser}
         enterButton
       />
 
-      <p></p>
+      <br />
+      <br />
+
+      <h2>请输入要封禁用户的 uid</h2>
+      <Search
+        placeholder="input search text"
+        value={banUid}
+        onChange={handleBanUidChange}
+        onSearch={onBanUser}
+        enterButton
+      />
+
+      <h2>请输入要解封用户的 uid</h2>
+      <Search
+        placeholder="input search text"
+        value={unbanUid}
+        onChange={handleUnbanUidChange}
+        onSearch={onUnbanUser}
+        enterButton
+      />
     </div>
   )
 }
