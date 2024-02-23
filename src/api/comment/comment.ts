@@ -1,4 +1,4 @@
-import { fetchGet } from '@/utils/request'
+import { fetchDelete, fetchGet, fetchPut } from '@/utils/request'
 
 export interface Comment {
   cid: number
@@ -20,11 +20,32 @@ export interface Comment {
 }
 
 type SearchCommentResponseData = KUNGalgameResponseData<Comment[]>
+type UpdateCommentResponseData = KUNGalgameResponseData<null>
 
 export const getCommentCidByContentApi = async (
   content: string
 ): Promise<SearchCommentResponseData> => {
   const url = `/comment?content=${content}`
   const response = await fetchGet<SearchCommentResponseData>(url)
+  return response
+}
+
+export const updateCommentByCidApi = async (
+  cid: number,
+  content: string
+): Promise<UpdateCommentResponseData> => {
+  const url = `/comment`
+  const response = await fetchPut<UpdateCommentResponseData>(url, {
+    cid,
+    content,
+  })
+  return response
+}
+
+export const deleteCommentByCidApi = async (
+  cid: number
+): Promise<UpdateCommentResponseData> => {
+  const url = `/comment?cid=${cid}`
+  const response = await fetchDelete<UpdateCommentResponseData>(url)
   return response
 }

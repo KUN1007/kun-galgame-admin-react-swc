@@ -12,7 +12,7 @@ const KunLayout: FC = () => {
   useTitle()
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -22,7 +22,7 @@ const KunLayout: FC = () => {
   }
 
   return (
-    <Layout style={{ height: '100dvh' }}>
+    <Layout className="h-dvh">
       <KunHeader />
 
       <Layout>
@@ -33,26 +33,12 @@ const KunLayout: FC = () => {
         >
           <LayoutMenu />
 
-          <Button
-            block
-            size="large"
-            type="text"
-            onClick={toggleCollapsed}
-            style={{ marginBottom: 16 }}
-          >
+          <Button block size="large" type="text" onClick={toggleCollapsed}>
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </Button>
         </Sider>
-        <Layout style={{ padding: '0 1rem 1rem' }}>
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
+        <Layout className="px-4">
+          <Content className="max-h-full p-8 m-0 bg-white rounded-lg">
             <Outlet />
           </Content>
         </Layout>
