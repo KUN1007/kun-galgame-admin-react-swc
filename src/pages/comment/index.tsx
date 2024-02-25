@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Input } from 'antd'
-import { getCommentCidByContentApi } from '@/api/comment/comment'
+import { getComments } from '@/api/comment/comment'
 import { SingleComment } from './SingleComment'
 import type { Comment } from '@/api/comment/comment'
 import type { ChangeEvent } from 'react'
@@ -15,7 +15,7 @@ const CommentPage: FC = () => {
     setContent(e.target.value)
 
   const onSearchComment = async (value: string) => {
-    const response = await getCommentCidByContentApi(value)
+    const response = await getComments(value)
 
     setComment(response.data)
   }

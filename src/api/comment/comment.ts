@@ -22,7 +22,7 @@ export interface Comment {
 type SearchCommentResponseData = KUNGalgameResponseData<Comment[]>
 type UpdateCommentResponseData = KUNGalgameResponseData<null>
 
-export const getCommentCidByContentApi = async (
+export const getComments = async (
   content: string
 ): Promise<SearchCommentResponseData> => {
   const url = `/comment?content=${content}`

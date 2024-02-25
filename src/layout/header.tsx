@@ -8,7 +8,12 @@ export const KunHeader: FC = () => {
   return (
     <Flex align="center" justify="space-between" className="p-4">
       <Flex align="center">
-        <Image width={50} src="/favicon.webp" alt="鲲 Galgame" />
+        <Image
+          width={50}
+          preview={false}
+          src="/favicon.webp"
+          alt="鲲 Galgame"
+        />
         <h2 className="m-0 ml-4 font-bold">鲲 Galgame Admin</h2>
       </Flex>
 
