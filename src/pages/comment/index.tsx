@@ -7,7 +7,7 @@ import type { ChangeEvent } from 'react'
 
 const { Search } = Input
 
-const CommentPage: FC = () => {
+export const CommentPage: FC = () => {
   const [content, setContent] = useState('')
   const [comment, setComment] = useState<Comment[]>()
 
@@ -39,5 +39,3 @@ const CommentPage: FC = () => {
     </div>
   )
 }
-
-export default CommentPage

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Input } from 'antd'
-import { getReplyRidByContentApi } from '@/api/reply/reply'
+import { getRepliesByContentApi } from '@/api/reply/reply'
 import { SingleReply } from './SingleReply'
 import type { Reply } from '@/api/reply/reply'
 import type { ChangeEvent } from 'react'
@@ -15,7 +15,7 @@ export const ReplyPage: FC = () => {
     setContent(e.target.value)
 
   const onSearchReply = async (value: string) => {
-    const response = await getReplyRidByContentApi(value)
+    const response = await getRepliesByContentApi(value)
     setReply(response.data)
   }
 

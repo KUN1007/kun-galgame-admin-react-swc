@@ -36,7 +36,7 @@ export interface UpdateReplyRequestData {
 type SearchReplyResponseData = KUNGalgameResponseData<Reply[]>
 type UpdateReplyResponseData = KUNGalgameResponseData<null>
 
-export const getReplyRidByContentApi = async (
+export const getRepliesByContentApi = async (
   content: string
 ): Promise<SearchReplyResponseData> => {
   const url = `/reply?content=${content}`

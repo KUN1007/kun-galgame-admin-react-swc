@@ -22,7 +22,7 @@ const KunLayout: FC = () => {
   }
 
   return (
-    <Layout className="h-dvh">
+    <Layout className="max-h-dvh h-dvh">
       <KunHeader />
 
       <Layout>

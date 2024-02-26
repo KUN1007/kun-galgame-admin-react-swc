@@ -2,12 +2,12 @@ import { RouteObject } from './types'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import KunLayout from '@/layout'
 
-import CommentPage from '@/pages/comment'
-import LoginPage from '@/pages/login'
+import { CommentPage } from '@/pages/comment'
+import { LoginPage } from '@/pages/login'
 import NoticePage from '@/pages/notice'
 import OverviewPage from '@/pages/overview'
 import { ReplyPage } from '@/pages/reply'
-import TopicPage from '@/pages/topic'
+import { TopicPage } from '@/pages/topic'
 import UserPage from '@/pages/user'
 
 const rootRoutes: RouteObject[] = [

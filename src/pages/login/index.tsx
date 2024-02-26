@@ -9,7 +9,7 @@ interface LoginState {
   password: string
 }
 
-const LoginPage: React.FC = () => {
+export const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const userStore = useUserStore()
   const [api, contextHolder] = notification.useNotification()
@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
       <Flex justify="center" align="center" vertical className="h-dvh">
         <Flex className="w-fall max-w-96" gap="middle" vertical>
           <Flex justify="center" align="center">
-            <h1 className="mb-5 text-3xl text-blue-500 font-bold">
+            <h1 className="mb-5 text-3xl font-bold text-blue-500">
               KUN Visualnovel
             </h1>
             <span className="m-3 text-red-700">admin</span>
@@ -96,5 +96,3 @@ const LoginPage: React.FC = () => {
     </>
   )
 }
-
-export default LoginPage
