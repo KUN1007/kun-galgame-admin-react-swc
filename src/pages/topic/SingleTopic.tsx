@@ -15,9 +15,15 @@ import {
   message,
   Button,
   Flex,
+  Switch,
+  Tooltip,
 } from 'antd'
 import dayjs from 'dayjs'
-import { updateTopicByTidApi, deleteTopicByTidApi } from '@/api/topic/topic'
+import {
+  updateTopicByTidApi,
+  deleteTopicByTidApi,
+  updateTopicStatusApi,
+} from '@/api/topic/topic'
 import type { Topic, UpdateTopicRequestData } from '@/api/topic/topic'
 
 const { CheckableTag } = Tag
@@ -106,6 +112,14 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
     }
   }
 
+  const onChange = async (tid: number, checked: boolean) => {
+    if (checked) {
+      await updateTopicStatusApi({ tid, status: 1 })
+    } else {
+      await updateTopicStatusApi({ tid, status: 0 })
+    }
+  }
+
   const handleDeleteTopic = (tid: number, content: string) => {
     setTopicData(tid.toString(), 'tid')
     setTopicData(content, 'content')
@@ -113,9 +127,16 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   }
 
   const handleDeleteConfirm = async () => {
-    await deleteTopicByTidApi(topic.tid)
-    setOpenDelete(false)
-    reload()
+    const res = await deleteTopicByTidApi(topic.tid)
+    if (res.code === 200) {
+      messageApi.open({
+        type: 'success',
+        content: '话题编辑成功',
+      })
+
+      setOpenDelete(false)
+      reload()
+    }
   }
 
   const handleChange = (tag: string, checked: boolean) => {
@@ -158,12 +179,12 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
               <span key="time">
                 发布时间：
-                {dayjs(topic.time).format('MM-D-YYYY - h:mm:ss A')}
+                {dayjs(topic.time).format('MM-D-YYYY - h:mm:ss')}
               </span>,
               topic.edited !== 0 && (
                 <span key="edited" className="text-blue-500">
                   重新编辑于：
-                  {dayjs(topic.edited).format('MM-D-YYYY - h:mm:ss A')}
+                  {dayjs(topic.edited).format('MM-D-YYYY - h:mm:ss')}
                 </span>
               ),
             ]}
@@ -171,12 +192,23 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
             <List.Item.Meta
               avatar={<Avatar src={topic.user.avatar} />}
               title={
-                <a
-                  href={`https://www.kungal.com/topic/${topic.tid}`}
-                  target="_blank"
-                >
-                  {topic.title}
-                </a>
+                <Flex className="pr-4" justify="space-between">
+                  <a
+                    href={`https://www.kungal.com/topic/${topic.tid}`}
+                    target="_blank"
+                  >
+                    {topic.title}
+                  </a>
+                  <Tooltip placement="bottom" title="是否封禁话题">
+                    <Switch
+                      className="shrink-0"
+                      checkedChildren="封禁"
+                      unCheckedChildren="正常"
+                      defaultChecked={topic.status === 1}
+                      onChange={(checked) => onChange(topic.tid, checked)}
+                    />
+                  </Tooltip>
+                </Flex>
               }
               description={
                 <Flex className="items-center justify-between">
@@ -271,7 +303,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         onCancel={() => setOpenDelete(false)}
       >
         <div className="p-4 my-4 border-4 border-blue-100 rounded-lg">
-          <p>{topic.content}</p>
+          <p>{topic.content.slice(0, 233)}</p>
         </div>
         <p>您确定删除话题吗, 该操作不可撤销</p>
       </Modal>

@@ -32,6 +32,11 @@ export interface UpdateTopicRequestData {
   category: string[]
 }
 
+export interface UpdateTopicStatusRequestData {
+  tid: number
+  status: number
+}
+
 type SearchTopicResponseData = KUNGalgameResponseData<Topic[]>
 type UpdateTopicResponseData = KUNGalgameResponseData<null>
 
@@ -56,5 +61,13 @@ export const deleteTopicByTidApi = async (
 ): Promise<UpdateTopicResponseData> => {
   const url = `/topic?tid=${tid}`
   const response = await fetchDelete<UpdateTopicResponseData>(url)
+  return response
+}
+
+export const updateTopicStatusApi = async (
+  data: UpdateTopicStatusRequestData
+): Promise<UpdateTopicResponseData> => {
+  const url = `/topic/status`
+  const response = await fetchPut<UpdateTopicResponseData>(url, { ...data })
   return response
 }

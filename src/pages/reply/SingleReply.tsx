@@ -103,7 +103,7 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
               }
               description={
                 <div>
-                  <p>{reply.content}</p>
+                  <p>{reply.content.slice(0, 233)}</p>
                   {reply.tags.map((tag, index) => (
                     <Tag key={index} color="blue" className="mb-4">
                       {tag}
@@ -160,7 +160,7 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
         onCancel={() => setOpenDelete(false)}
       >
         <div className="p-4 my-4 border-4 border-blue-100 rounded-lg">
-          <p>{replyContent}</p>
+          <p>{replyContent.slice(0, 233)}</p>
         </div>
         <p>您确定删除回复吗, 该操作不可撤销</p>
       </Modal>
