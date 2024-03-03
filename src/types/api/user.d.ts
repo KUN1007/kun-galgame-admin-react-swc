@@ -2,7 +2,6 @@ export interface UserAttributes {
   uid: number
   name: string
   email: string
-  password: string
   ip: string
   avatar: string
   roles: number

@@ -67,7 +67,8 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
       <List
         itemLayout="horizontal"
         dataSource={replyList}
-        className="pr-4 overflow-y-scroll max-h-96"
+        className="pr-4 overflow-y-scroll"
+        style={{ maxHeight: 'calc(100dvh - 233px)' }}
         renderItem={(reply) => (
           <List.Item
             actions={[
@@ -103,7 +104,7 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
               }
               description={
                 <div>
-                  <p>{reply.content.slice(0, 233)}</p>
+                  <p className="break-words">{reply.content.slice(0, 233)}</p>
                   {reply.tags.map((tag, index) => (
                     <Tag key={index} color="blue" className="mb-4">
                       {tag}

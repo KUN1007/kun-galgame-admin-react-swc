@@ -67,7 +67,6 @@ export const LayoutMenu: FC = function () {
       mode="inline"
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['sub1']}
-      style={{ borderRight: 0 }}
       items={menuItems}
       onClick={handleMenuClick}
     />

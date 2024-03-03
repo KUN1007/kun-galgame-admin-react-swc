@@ -67,7 +67,8 @@ export const SingleComment: FC<SingleCommentProps> = ({
       <List
         itemLayout="horizontal"
         dataSource={commentList}
-        className="pr-4 overflow-y-scroll max-h-96"
+        className="pr-4 overflow-y-scroll"
+        style={{ maxHeight: 'calc(100dvh - 233px)' }}
         renderItem={(comment) => (
           <List.Item
             actions={[
@@ -107,7 +108,7 @@ export const SingleComment: FC<SingleCommentProps> = ({
                   {`${comment.c_user.name}-${comment.c_user.uid} => ${comment.to_user.name}-${comment.to_user.uid}`}
                 </a>
               }
-              description={comment.content}
+              description={<p className="break-words">{comment.content}</p>}
             />
           </List.Item>
         )}

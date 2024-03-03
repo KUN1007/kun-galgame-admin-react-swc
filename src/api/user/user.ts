@@ -14,6 +14,14 @@ export const getUserByUid = async (
   return response
 }
 
+export const getUserByUsername = async (
+  name: string
+): Promise<FindUserResponseData> => {
+  const url = `/user/search?name=${name}`
+  const response = await fetchGet<FindUserResponseData>(url)
+  return response
+}
+
 export const banUserByUid = async (
   uid: number
 ): Promise<BanUserResponseData> => {
