@@ -2,7 +2,17 @@ import { fetchGet, fetchPut } from '@/utils/request'
 import type { User } from '@/types/api/user'
 // import objectToQueryParams from '@/utils/objectToQueryParams'
 
+export interface UserResponseData {
+  uid: number
+  name: string
+  avatar: string
+  bio: string
+  time: number
+  status: number
+}
+
 type FindUserResponseData = KUNGalgameResponseData<User>
+type SearchUserResponseData = KUNGalgameResponseData<UserResponseData[]>
 type BanUserResponseData = KUNGalgameResponseData<string>
 type UnbanUserResponseData = KUNGalgameResponseData<string>
 
@@ -16,9 +26,9 @@ export const getUserByUid = async (
 
 export const getUserByUsername = async (
   name: string
-): Promise<FindUserResponseData> => {
+): Promise<SearchUserResponseData> => {
   const url = `/user/search?name=${name}`
-  const response = await fetchGet<FindUserResponseData>(url)
+  const response = await fetchGet<SearchUserResponseData>(url)
   return response
 }
 

@@ -131,7 +131,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
-        content: '话题编辑成功',
+        content: '话题删除成功',
       })
 
       setOpenDelete(false)
@@ -191,7 +191,15 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
             ]}
           >
             <List.Item.Meta
-              avatar={<Avatar src={topic.user.avatar} />}
+              avatar={
+                topic.user.avatar ? (
+                  <Avatar src={topic.user.avatar} />
+                ) : (
+                  <Avatar className="text-white bg-blue-500">
+                    {topic.user.name[0].toUpperCase()}
+                  </Avatar>
+                )
+              }
               title={
                 <Flex className="pr-4" justify="space-between">
                   <a

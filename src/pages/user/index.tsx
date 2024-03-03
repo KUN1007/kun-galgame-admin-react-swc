@@ -1,9 +1,11 @@
 import { FC, useState } from 'react'
+import dayjs from 'dayjs'
 import { Input, Avatar, Card, Descriptions, Switch } from 'antd'
 import { getUserByUid, getUserByUsername } from '@/api/user/user'
+import { SingleUser } from './SingleUser'
 import type { DescriptionsProps } from 'antd'
 import type { User } from '@/types/api/user'
-import dayjs from 'dayjs'
+import type { UserResponseData } from '@/api/user/user'
 
 const { Search } = Input
 const { Meta } = Card
@@ -49,6 +51,7 @@ const UserPage: FC = () => {
     upvote_topic: [],
     reply_topic: [],
   })
+  const [users, setUsers] = useState<UserResponseData[]>([])
 
   const userFields = (user: User): DescriptionsProps['items'] => {
     return Object.keys(user).map((key, index) => {
@@ -75,8 +78,7 @@ const UserPage: FC = () => {
 
   const onSearchUserName = async (value: string) => {
     const response = await getUserByUsername(value)
-
-    console.log(response)
+    setUsers(response.data)
   }
 
   return (
@@ -97,18 +99,7 @@ const UserPage: FC = () => {
       {user.name && (
         <Card
           size="small"
-          title={
-            <>
-              <a
-                className="mr-4"
-                href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
-                target="_blank"
-              >
-                用户主页
-              </a>
-              {`UID: ${user.uid}`}
-            </>
-          }
+          title={`UID: ${user.uid}`}
           extra={
             <>
               展示更多信息
@@ -129,7 +120,15 @@ const UserPage: FC = () => {
                 </Avatar>
               )
             }
-            title={user.name}
+            title={
+              <a
+                className="mr-4"
+                href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
+                target="_blank"
+              >
+                {user.name}
+              </a>
+            }
             description={user.bio}
           />
           {showInfo && (
@@ -151,6 +150,11 @@ const UserPage: FC = () => {
         enterButton="确定"
         className="mb-8"
       />
+
+      <SingleUser
+        userList={users}
+        reload={() => onSearchUserName(name)}
+      ></SingleUser>
     </div>
   )
 }
