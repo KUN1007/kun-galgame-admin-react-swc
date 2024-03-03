@@ -24,18 +24,11 @@ const kunFetchRequest = async <T>(
 
   const response = await fetch(fullUrl, { ...options, headers })
 
-  // if (response.status === 205) {
-  //   const newResponseData = await requestRefresh(fullUrl, options)
-  //   const data: T = await newResponseData.json()
-  //   return data
-  // } else if (response.status === 233 || !response.ok) {
-  //   // Handle some known backend error
-  //   await onRequestError(response)
-  //   return {} as T
-  // } else {
-  //   const data: T = await response.json()
-  //   return data
-  // }
+  if (response.status === 205) {
+    window.history.pushState(null, '', '/login')
+    location.reload()
+  }
+
   return response.json()
 }
 

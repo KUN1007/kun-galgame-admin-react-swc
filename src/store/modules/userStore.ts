@@ -6,7 +6,6 @@ const initialState: UserInfo = {
   uid: '',
   name: '',
   avatar: '',
-  roles: '',
   token: '',
 }
 
