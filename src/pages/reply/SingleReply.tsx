@@ -67,6 +67,9 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
       <List
         itemLayout="horizontal"
         dataSource={replyList}
+        pagination={{
+          pageSize: 10,
+        }}
         className="pr-4 overflow-y-scroll"
         style={{ maxHeight: 'calc(100dvh - 233px)' }}
         renderItem={(reply) => (

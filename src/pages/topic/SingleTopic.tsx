@@ -151,12 +151,11 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
       {contextHolder}
       <List
         itemLayout="vertical"
-        size="default"
+        className="overflow-y-scroll"
+        style={{ maxHeight: 'calc(100dvh - 233px)' }}
         pagination={{
           pageSize: 10,
         }}
-        className="overflow-y-scroll"
-        style={{ maxHeight: 'calc(100dvh - 233px)' }}
         dataSource={topicList}
         renderItem={(topic) => (
           <List.Item
