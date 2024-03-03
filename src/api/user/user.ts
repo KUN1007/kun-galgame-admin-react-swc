@@ -1,4 +1,4 @@
-import { fetchGet, fetchPut } from '@/utils/request'
+import { fetchDelete, fetchGet, fetchPut } from '@/utils/request'
 import type { User } from '@/types/api/user'
 // import objectToQueryParams from '@/utils/objectToQueryParams'
 
@@ -15,6 +15,7 @@ type FindUserResponseData = KUNGalgameResponseData<User>
 type SearchUserResponseData = KUNGalgameResponseData<UserResponseData[]>
 type BanUserResponseData = KUNGalgameResponseData<string>
 type UnbanUserResponseData = KUNGalgameResponseData<string>
+type DeleteUserResponseData = KUNGalgameResponseData<null>
 
 export const getUserByUid = async (
   uid: number
@@ -45,5 +46,13 @@ export const unbanUserByUid = async (
 ): Promise<UnbanUserResponseData> => {
   const url = `/user/unban`
   const response = await fetchPut<UnbanUserResponseData>(url, { uid })
+  return response
+}
+
+export const deleteUserByUid = async (
+  uid: number
+): Promise<DeleteUserResponseData> => {
+  const url = `/user/${uid}`
+  const response = await fetchDelete<DeleteUserResponseData>(url)
   return response
 }
