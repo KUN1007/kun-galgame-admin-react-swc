@@ -1,3 +1,4 @@
+import { errorHandler } from '@/error/errorHandler'
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 export type FetchOptions = {
@@ -24,9 +25,9 @@ const kunFetchRequest = async <T>(
 
   const response = await fetch(fullUrl, { ...options, headers })
 
-  if (response.status === 205) {
-    window.history.pushState(null, '', '/login')
-    location.reload()
+  if (response.status === 233 || !response.ok) {
+    await errorHandler(response)
+    throw new Error('Fetch data ERROR')
   }
 
   return response.json()
