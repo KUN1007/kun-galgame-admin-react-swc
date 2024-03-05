@@ -62,7 +62,7 @@ export const LoginPage: React.FC = () => {
               id="name"
               type="text"
               autoComplete="username"
-              placeholder="Basic usage"
+              placeholder="请输入您的论坛用户名或邮箱"
               value={state.name}
               onChange={handleEmailChange}
             />
@@ -74,7 +74,7 @@ export const LoginPage: React.FC = () => {
               id="password"
               type="password"
               autoComplete="password"
-              placeholder="Basic usage"
+              placeholder="请输入您的密码"
               value={state.password}
               onChange={handlePasswordChange}
             />
