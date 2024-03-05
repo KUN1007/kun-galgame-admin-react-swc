@@ -1,4 +1,4 @@
-import { fetchDelete, fetchGet, fetchPut } from '@/utils/request'
+import { fetchGet } from '@/utils/request'
 
 export interface SumData {
   topicCount: number
@@ -16,8 +16,10 @@ export interface OverviewData {
 
 export interface WeekData {}
 
+export type ModelName = 'topic' | 'reply' | 'comment' | 'user'
 type OverviewResponseData = KUNGalgameResponseData<OverviewData>
 type SumResponseData = KUNGalgameResponseData<SumData>
+type LineChartResponseData = KUNGalgameResponseData<number[]>
 
 export const getSumDataApi = async (): Promise<SumResponseData> => {
   const url = `/overview/sum`
@@ -30,5 +32,14 @@ export const getOverviewDataApi = async (
 ): Promise<OverviewResponseData> => {
   const url = `/overview?days=${days}`
   const response = await fetchGet<OverviewResponseData>(url)
+  return response
+}
+
+export const getLineChartDataApi = async (
+  days: number,
+  model: ModelName
+): Promise<LineChartResponseData> => {
+  const url = `/overview/line?days=${days}&model=${model}`
+  const response = await fetchGet<LineChartResponseData>(url)
   return response
 }

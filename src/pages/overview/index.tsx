@@ -1,6 +1,11 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { Statistic, Slider, Row, Col, Flex, Divider } from 'antd'
-import { getSumDataApi, getOverviewDataApi } from '@/api/overview/overview'
+import {
+  getSumDataApi,
+  getOverviewDataApi,
+  getLineChartDataApi,
+} from '@/api/overview/overview'
+import { MyResponsiveLine } from './line-chart'
 import type { SumData, OverviewData } from '@/api/overview/overview'
 
 const OverviewPage: FC = () => {
@@ -10,6 +15,9 @@ const OverviewPage: FC = () => {
     commentCount: 0,
     userCount: 0,
   })
+  const [lineData, setLineData] = useState<Record<string, string | number>[]>(
+    []
+  )
   const [overview, setOverview] = useState<OverviewData>({
     newTopics: 0,
     newReplies: 0,
@@ -37,6 +45,19 @@ const OverviewPage: FC = () => {
     }
     getOverview()
   }, [days])
+
+  useEffect(() => {
+    const getWeek = async () => {
+      const res = await getLineChartDataApi(7, 'reply')
+
+      const responseLineData = res.data.map((value, index) => {
+        return Object.assign({}, { x: `前 ${index + 1} 天`, y: value })
+      })
+
+      setLineData(responseLineData)
+    }
+    getWeek()
+  }, [])
 
   return (
     <div>
@@ -75,7 +96,15 @@ const OverviewPage: FC = () => {
 
       <Divider />
 
-      <h2>数据折线图</h2>
+      <h2>折线统计图</h2>
+
+      <div className="w-full" style={{ height: '400px' }}>
+        {lineData.length && (
+          <MyResponsiveLine
+            data={[{ id: 'kun', color: 'blue', data: lineData }]}
+          />
+        )}
+      </div>
     </div>
   )
 }
