@@ -15,9 +15,9 @@ export const MyResponsiveLine = ({ data }: { data: Serie[] }) => (
       stacked: true,
       reverse: false,
     }}
-    yFormat=" >-.2f"
     lineWidth={3}
     pointSize={10}
+    colors={{ scheme: 'category10' }}
     pointColor={{ theme: 'background' }}
     pointBorderWidth={2}
     pointBorderColor={{ from: 'serieColor' }}

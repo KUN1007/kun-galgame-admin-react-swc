@@ -1,12 +1,20 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import { Statistic, Slider, Row, Col, Flex, Divider } from 'antd'
+import { Statistic, Slider, Row, Col, Flex, Divider, Radio } from 'antd'
 import {
   getSumDataApi,
   getOverviewDataApi,
   getLineChartDataApi,
 } from '@/api/overview/overview'
 import { MyResponsiveLine } from './line-chart'
-import type { SumData, OverviewData } from '@/api/overview/overview'
+import { debounce } from '@/utils/debounce'
+import type { SumData, OverviewData, ModelName } from '@/api/overview/overview'
+
+const optionMap = {
+  topic: '话题',
+  reply: '回复',
+  comment: '评论',
+  user: '用户',
+}
 
 const OverviewPage: FC = () => {
   const sum = useRef<SumData>({
@@ -15,9 +23,8 @@ const OverviewPage: FC = () => {
     commentCount: 0,
     userCount: 0,
   })
-  const [lineData, setLineData] = useState<Record<string, string | number>[]>(
-    []
-  )
+  const [modelName, setModelName] = useState<ModelName>('topic')
+  const [countDays, setCountDays] = useState(7)
   const [overview, setOverview] = useState<OverviewData>({
     newTopics: 0,
     newReplies: 0,
@@ -25,10 +32,9 @@ const OverviewPage: FC = () => {
     newUsers: 0,
   })
   const [days, setDays] = useState(2)
-
-  const onChange = (newValue: number) => {
-    setDays(newValue)
-  }
+  const [lineData, setLineData] = useState<Record<string, string | number>[]>(
+    []
+  )
 
   useEffect(() => {
     const getSum = async () => {
@@ -43,12 +49,13 @@ const OverviewPage: FC = () => {
       const res = await getOverviewDataApi(days)
       setOverview(res.data)
     }
-    getOverview()
+
+    debounce(() => getOverview(), 300)()
   }, [days])
 
   useEffect(() => {
     const getWeek = async () => {
-      const res = await getLineChartDataApi(7, 'reply')
+      const res = await getLineChartDataApi(countDays, modelName)
 
       const responseLineData = res.data.map((value, index) => {
         return Object.assign({}, { x: `前 ${index + 1} 天`, y: value })
@@ -56,8 +63,9 @@ const OverviewPage: FC = () => {
 
       setLineData(responseLineData)
     }
-    getWeek()
-  }, [])
+
+    debounce(() => getWeek(), 300)()
+  }, [countDays, modelName])
 
   return (
     <div>
@@ -80,8 +88,8 @@ const OverviewPage: FC = () => {
           <Slider
             tooltip={{ open: true, placement: 'left', color: 'blue' }}
             min={1}
-            max={30}
-            onChange={onChange}
+            max={20}
+            onChange={(value) => setDays(value)}
             value={days}
           />
         </Col>
@@ -96,7 +104,7 @@ const OverviewPage: FC = () => {
 
       <Divider />
 
-      <h2>折线统计图</h2>
+      <h2>{`${optionMap[modelName]}数据 ${countDays} 天统计图`}</h2>
 
       <div className="w-full" style={{ height: '400px' }}>
         {lineData.length && (
@@ -105,6 +113,33 @@ const OverviewPage: FC = () => {
           />
         )}
       </div>
+
+      <Flex justify="space-between" className="flex-wrap px-8">
+        <Col span={12}>
+          <Slider
+            tooltip={{
+              open: true,
+              placement: 'left',
+              color: 'blue',
+              formatter: (value) => `${value} 天`,
+            }}
+            min={7}
+            max={30}
+            onChange={(value) => setCountDays(value)}
+            value={countDays}
+          />
+        </Col>
+
+        <Radio.Group
+          onChange={(event) => setModelName(event.target.value)}
+          defaultValue="topic"
+        >
+          <Radio.Button value="topic">话题</Radio.Button>
+          <Radio.Button value="reply">回复</Radio.Button>
+          <Radio.Button value="comment">评论</Radio.Button>
+          <Radio.Button value="user">用户</Radio.Button>
+        </Radio.Group>
+      </Flex>
     </div>
   )
 }
