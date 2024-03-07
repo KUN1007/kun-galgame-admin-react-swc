@@ -50,7 +50,7 @@ const OverviewPage: FC = () => {
       setOverview(res.data)
     }
 
-    debounce(() => getOverview(), 300)()
+    debounce(() => getOverview(), 300, { immediate: true })()
   }, [days])
 
   useEffect(() => {
