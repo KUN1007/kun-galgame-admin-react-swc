@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Statistic, Slider, Row, Col, Flex, Divider } from 'antd'
 import { getOverviewDataApi } from '@/api/overview/overview'
-import { useDebouncedCallback } from 'use-debounce'
+import { useDebounce } from 'use-debounce'
 import { KunAdminSum } from './sum'
 import type { OverviewData } from '@/api/overview/overview'
 
@@ -13,15 +13,16 @@ export const KunAdminStatistic: FC = () => {
     newUsers: 0,
   })
   const [days, setDays] = useState(1)
+  const [debouncedDays] = useDebounce(days, 300)
 
-  const debouncedGetOverview = useDebouncedCallback(async (days: number) => {
+  const getOverview = async (days: number) => {
     const res = await getOverviewDataApi(days)
     setOverview(res.data)
-  }, 300)
+  }
 
   useEffect(() => {
-    debouncedGetOverview(days)
-  }, [days, debouncedGetOverview])
+    getOverview(debouncedDays)
+  }, [debouncedDays])
 
   return (
     <>

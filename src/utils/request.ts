@@ -8,6 +8,9 @@ export type FetchOptions = {
   body?: BodyInit
 }
 
+// Request deduplication
+const pendingRequests = new Map()
+
 const kunFetchRequest = async <T>(
   url: string,
   options: FetchOptions
@@ -23,14 +26,30 @@ const kunFetchRequest = async <T>(
     Authorization: `Bearer ${userStore}`,
   }
 
-  const response = await fetch(fullUrl, { ...options, headers })
+  const requestKey = JSON.stringify({ fullUrl, options })
 
-  if (response.status === 233 || !response.ok) {
-    await errorHandler(response)
-    throw new Error('Fetch data ERROR')
+  if (pendingRequests.has(requestKey)) {
+    return pendingRequests.get(requestKey)
   }
 
-  return response.json()
+  const fetchPromise = (async () => {
+    try {
+      const response = await fetch(fullUrl, { ...options, headers })
+
+      if (response.status === 233 || !response.ok) {
+        await errorHandler(response)
+        throw new Error('Fetch data ERROR')
+      }
+
+      return response.json()
+    } finally {
+      pendingRequests.delete(requestKey)
+    }
+  })()
+
+  pendingRequests.set(requestKey, fetchPromise)
+
+  return fetchPromise
 }
 
 const fetchGet = async <T>(
