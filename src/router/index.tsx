@@ -1,14 +1,8 @@
+import { lazy } from 'react'
+import { lazyLoad } from './utils/lazyLoad'
 import { RouteObject } from './types'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import KunLayout from '@/layout'
-
-import { CommentPage } from '@/pages/comment'
-import { LoginPage } from '@/pages/login'
-import NoticePage from '@/pages/notice'
-import OverviewPage from '@/pages/overview'
-import { ReplyPage } from '@/pages/reply'
-import { TopicPage } from '@/pages/topic'
-import UserPage from '@/pages/user'
 
 const rootRoutes: RouteObject[] = [
   {
@@ -17,7 +11,7 @@ const rootRoutes: RouteObject[] = [
   },
   {
     path: '/login',
-    element: <LoginPage />,
+    element: lazyLoad(lazy(() => import('@/pages/login'))),
     meta: {
       title: '登录',
       key: 'login',
@@ -29,27 +23,27 @@ const rootRoutes: RouteObject[] = [
     children: [
       {
         path: '/comment',
-        element: <CommentPage />,
+        element: lazyLoad(lazy(() => import('@/pages/comment'))),
       },
       {
         path: '/overview',
-        element: <OverviewPage />,
+        element: lazyLoad(lazy(() => import('@/pages/overview'))),
       },
       {
         path: '/notice',
-        element: <NoticePage />,
+        element: lazyLoad(lazy(() => import('@/pages/notice'))),
       },
       {
         path: '/reply',
-        element: <ReplyPage />,
+        element: lazyLoad(lazy(() => import('@/pages/reply'))),
       },
       {
         path: '/topic',
-        element: <TopicPage />,
+        element: lazyLoad(lazy(() => import('@/pages/topic'))),
       },
       {
         path: '/user',
-        element: <UserPage />,
+        element: lazyLoad(lazy(() => import('@/pages/user'))),
       },
     ],
   },

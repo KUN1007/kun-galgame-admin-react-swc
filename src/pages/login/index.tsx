@@ -9,7 +9,7 @@ interface LoginState {
   password: string
 }
 
-export const LoginPage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const userStore = useUserStore()
   const [api, contextHolder] = notification.useNotification()
@@ -96,3 +96,5 @@ export const LoginPage: React.FC = () => {
     </>
   )
 }
+
+export default LoginPage

@@ -7,7 +7,7 @@ import type { ChangeEvent } from 'react'
 
 const { Search } = Input
 
-export const TopicPage: FC = () => {
+const TopicPage: FC = () => {
   const [content, setContent] = useState('')
   const [topics, setTopics] = useState<Topic[]>()
 
@@ -35,3 +35,5 @@ export const TopicPage: FC = () => {
     </div>
   )
 }
+
+export default TopicPage

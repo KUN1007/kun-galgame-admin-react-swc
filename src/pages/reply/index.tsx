@@ -7,7 +7,7 @@ import type { ChangeEvent } from 'react'
 
 const { Search } = Input
 
-export const ReplyPage: FC = () => {
+const ReplyPage: FC = () => {
   const [content, setContent] = useState('')
   const [reply, setReply] = useState<Reply[]>()
 
@@ -35,3 +35,5 @@ export const ReplyPage: FC = () => {
     </div>
   )
 }
+
+export default ReplyPage
