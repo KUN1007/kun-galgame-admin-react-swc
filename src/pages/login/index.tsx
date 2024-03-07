@@ -55,26 +55,26 @@ const LoginPage: React.FC = () => {
           </Flex>
 
           <Form className="flex flex-col">
-            <label htmlFor="name">用户名或邮箱</label>
+            <label htmlFor="name">Username or Email</label>
             <Input
               size="large"
               className="my-4"
               id="name"
               type="text"
               autoComplete="username"
-              placeholder="请输入您的论坛用户名或邮箱"
+              placeholder="Please input your username or email"
               value={state.name}
               onChange={handleEmailChange}
             />
 
-            <label htmlFor="password">密码</label>
+            <label htmlFor="password">Password</label>
             <Input
               size="large"
               className="mt-4"
               id="password"
               type="password"
               autoComplete="password"
-              placeholder="请输入您的密码"
+              placeholder="Please input your password"
               value={state.password}
               onChange={handlePasswordChange}
             />
@@ -82,14 +82,14 @@ const LoginPage: React.FC = () => {
 
           <div className="mt-2">
             <Button size="large" block type="primary" onClick={handleLogin}>
-              登录
+              LOGIN
             </Button>
           </div>
         </Flex>
 
         <Flex>
           <Button size="large" block className="mt-20" type="dashed">
-            主站
+            GO TO Forum
           </Button>
         </Flex>
       </Flex>
