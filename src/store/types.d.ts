@@ -1,6 +1,7 @@
 export interface UserInfo {
-  uid: string
+  uid: number
   name: string
   avatar: string
   token: string
+  roles: number
 }

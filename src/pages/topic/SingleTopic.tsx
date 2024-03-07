@@ -19,6 +19,7 @@ import {
   Tooltip,
 } from 'antd'
 import dayjs from 'dayjs'
+import { useUserStore } from '@/store/modules/userStore'
 import {
   updateTopicByTidApi,
   deleteTopicByTidApi,
@@ -45,6 +46,7 @@ const categories = ['Galgame', 'Technique', 'Others']
 
 export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   const [messageApi, contextHolder] = message.useMessage()
+  const roles = useUserStore().user.roles
 
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
@@ -241,15 +243,19 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
                     >
                       编辑
                     </Button>
-                    <Button
-                      className="mr-4"
-                      key="delete"
-                      onClick={() =>
-                        handleDeleteTopic(topic.tid, topic.content)
-                      }
-                    >
-                      删除
-                    </Button>
+                    {roles > 2 && (
+                      <Button
+                        className="mr-4"
+                        key="delete"
+                        type="primary"
+                        danger
+                        onClick={() =>
+                          handleDeleteTopic(topic.tid, topic.content)
+                        }
+                      >
+                        删除
+                      </Button>
+                    )}
                   </div>
                 </Flex>
               }

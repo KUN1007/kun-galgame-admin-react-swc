@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from 'antd'
 import dayjs from 'dayjs'
+import { useUserStore } from '@/store/modules/userStore'
 import { banUserByUid, unbanUserByUid, deleteUserByUid } from '@/api/user/user'
 import type { UserResponseData } from '@/api/user/user'
 
@@ -20,6 +21,7 @@ interface UserProps {
 
 export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
   const [messageApi, contextHolder] = message.useMessage()
+  const roles = useUserStore().user.roles
 
   const [openDelete, setOpenDelete] = useState(false)
   const [user, setUser] = useState<UserResponseData>({
@@ -115,15 +117,17 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
                       />
                     </Tooltip>
 
-                    <Button
-                      type="primary"
-                      className="mx-4"
-                      key="delete"
-                      danger
-                      onClick={() => handleDeleteUser(user.uid, user.name)}
-                    >
-                      删除
-                    </Button>
+                    {roles > 2 && (
+                      <Button
+                        type="primary"
+                        className="mx-4"
+                        key="delete"
+                        danger
+                        onClick={() => handleDeleteUser(user.uid, user.name)}
+                      >
+                        删除
+                      </Button>
+                    )}
                   </div>
                 </Flex>
               }

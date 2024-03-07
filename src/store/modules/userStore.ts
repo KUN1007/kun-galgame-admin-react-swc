@@ -3,10 +3,11 @@ import { persist } from 'zustand/middleware'
 import type { UserInfo } from '@/store/types'
 
 const initialState: UserInfo = {
-  uid: '',
+  uid: 0,
   name: '',
   avatar: '',
   token: '',
+  roles: 0,
 }
 
 interface KunPersistUserStore {
