@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react'
 import { Slider, Col, Flex, Radio } from 'antd'
+import dayjs from 'dayjs'
 import { getLineChartDataApi } from '@/api/overview/overview'
 import { useDebouncedCallback } from 'use-debounce'
-import type { ModelName } from '@/api/overview/overview'
-
 import { ResponsiveLine } from '@nivo/line'
+import type { ModelName } from '@/api/overview/overview'
 
 const optionMap = {
   topic: '话题',
@@ -25,7 +25,15 @@ export const KunAdminLineChart: FC = () => {
       const res = await getLineChartDataApi(countDays, modelName)
 
       const responseLineData = res.data.map((value, index) => {
-        return Object.assign({}, { x: `前 ${index + 1} 天`, y: value })
+        return Object.assign(
+          {},
+          {
+            x: dayjs()
+              .subtract(index + 1, 'day')
+              .format('M-D'),
+            y: value,
+          }
+        )
       })
 
       setLineData(responseLineData)
@@ -40,6 +48,9 @@ export const KunAdminLineChart: FC = () => {
   return (
     <>
       <h2>{`${optionMap[modelName]}数据 ${countDays} 天统计图`}</h2>
+      <p>
+        提示: 举最新一天数据为例, 该数据为今日 00:00 至昨日 00:00 间隔的数据
+      </p>
 
       <div className="w-full" style={{ height: '400px' }}>
         {lineData.length && (
