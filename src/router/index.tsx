@@ -45,6 +45,10 @@ const rootRoutes: RouteObject[] = [
         path: '/user',
         element: lazyLoad(lazy(() => import('@/pages/user'))),
       },
+      {
+        path: '/info',
+        element: lazyLoad(lazy(() => import('@/pages/info'))),
+      },
     ],
   },
   {

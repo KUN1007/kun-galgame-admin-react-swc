@@ -9,6 +9,7 @@ import {
   RollbackOutlined,
   CommentOutlined,
   NotificationOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons'
 
 interface MenuItem {
@@ -41,6 +42,10 @@ const itemName: MenuItem[] = [
     key: 'notice',
     label: '公告管理',
   },
+  {
+    key: 'info',
+    label: '操作记录',
+  },
 ]
 
 const menuItems: MenuProps['items'] = [
@@ -50,6 +55,7 @@ const menuItems: MenuProps['items'] = [
   RollbackOutlined,
   CommentOutlined,
   NotificationOutlined,
+  ExclamationCircleOutlined,
 ].map((icon, index) => ({
   key: itemName[index].key,
   icon: createElement(icon),
