@@ -97,7 +97,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
                 )
               }
               title={
-                <Flex justify="space-between" className="pr-4">
+                <Flex justify="space-between">
                   <a
                     className="mr-4"
                     href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
@@ -134,7 +134,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
               description={user.bio}
             />
             {
-              <Flex justify="space-between" className="pr-4">
+              <Flex justify="space-between">
                 <span>UID: {user.uid}</span>
                 <span>
                   注册时间: {dayjs(user.time).format('MM-D-YYYY - h:mm:ss A')}

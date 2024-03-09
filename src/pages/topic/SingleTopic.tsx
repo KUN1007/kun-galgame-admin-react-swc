@@ -202,7 +202,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
                 )
               }
               title={
-                <Flex className="pr-4" justify="space-between">
+                <Flex justify="space-between">
                   <a
                     href={`https://www.kungal.com/topic/${topic.tid}`}
                     target="_blank"

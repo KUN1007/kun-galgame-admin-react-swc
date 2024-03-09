@@ -9,6 +9,10 @@
   border-color: theme('borderColor.DEFAULT', currentColor);
 }
 
+* {
+  scrollbar-width: none;
+}
+
 ::before,
 ::after {
   --tw-content: '';

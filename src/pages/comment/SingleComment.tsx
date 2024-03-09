@@ -67,7 +67,7 @@ export const SingleComment: FC<SingleCommentProps> = ({
       <List
         itemLayout="horizontal"
         dataSource={commentList}
-        className="pr-4 overflow-y-scroll"
+        className="overflow-y-scroll"
         style={{ maxHeight: 'calc(100dvh - 233px)' }}
         pagination={{
           pageSize: 10,

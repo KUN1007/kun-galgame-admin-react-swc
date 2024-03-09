@@ -28,7 +28,7 @@ const InfoPage: FC = () => {
     <List
       itemLayout="horizontal"
       dataSource={info}
-      className="pr-4 overflow-y-scroll"
+      className="overflow-y-scroll"
       style={{ maxHeight: 'calc(100dvh - 233px)' }}
       pagination={{
         pageSize: 10,
@@ -52,7 +52,11 @@ const InfoPage: FC = () => {
                 </Flex>
               </a>
             }
-            title={<pre>{info.content}</pre>}
+            title={
+              <pre className="break-words whitespace-pre-wrap">
+                {info.content}
+              </pre>
+            }
             description={
               <Flex justify="space-between">
                 <span
