@@ -4,6 +4,14 @@ import dayjs from 'dayjs'
 import { getInfoApi } from '@/api/info/info'
 import type { Info } from '@/api/info/info'
 
+const InfoTypeMap: Record<string, string> = {
+  get: 'green',
+  post: 'yellow',
+  update: 'blue',
+  delete: 'red',
+  global: 'gray',
+}
+
 const InfoPage: FC = () => {
   const [info, setInfo] = useState<Info[]>([])
 
@@ -46,9 +54,16 @@ const InfoPage: FC = () => {
             }
             title={<pre>{info.content}</pre>}
             description={
-              <p className="break-words">
-                {dayjs(info.time).format('YYYY-MM-DD HH:mm:ss')}
-              </p>
+              <Flex justify="space-between">
+                <span
+                  className={`px-2 text-white rounded-lg bg-${
+                    InfoTypeMap[info.type]
+                  }-500`}
+                >
+                  {info.type.toLocaleUpperCase()}
+                </span>
+                <span>{dayjs(info.time).format('YYYY-MM-DD HH:mm:ss')}</span>
+              </Flex>
             }
           />
         </List.Item>

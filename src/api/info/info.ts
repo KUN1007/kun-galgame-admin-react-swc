@@ -1,5 +1,7 @@
 import { fetchGet } from '@/utils/request'
 
+export type AdminInfo = 'get' | 'put' | 'update' | 'delete' | 'global'
+
 export interface Info {
   ai_id: number
   user: {
@@ -7,6 +9,7 @@ export interface Info {
     avatar: string
     name: string
   }
+  type: AdminInfo
   content: string
   time: number
 }
