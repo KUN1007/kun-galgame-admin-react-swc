@@ -1,7 +1,8 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useTitle } from '@/hooks/useTitle'
 import { Layout, theme, Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { useUserStore } from '@/store/modules/userStore'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { LayoutMenu } from './menu'
 import { KunHeader } from './header'
@@ -9,13 +10,20 @@ import { KunHeader } from './header'
 const { Content, Sider } = Layout
 
 const KunLayout: FC = () => {
-  useTitle()
+  const [collapsed, setCollapsed] = useState(false)
+
+  const userStore = useUserStore()
+  const navigate = useNavigate()
 
   const {
     token: { colorBgContainer },
   } = theme.useToken()
 
-  const [collapsed, setCollapsed] = useState(false)
+  useEffect(() => {
+    if (!userStore.user.token) {
+      navigate('/login')
+    }
+  }, [navigate, userStore.user.token])
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed)

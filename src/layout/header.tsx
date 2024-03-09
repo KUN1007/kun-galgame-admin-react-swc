@@ -12,9 +12,9 @@ export const KunHeader: FC = () => {
           width={50}
           preview={false}
           src="/favicon.webp"
-          alt="鲲 Galgame"
+          alt="KUN Visual Novel"
         />
-        <h2 className="m-0 ml-4 font-bold">鲲 Galgame Admin</h2>
+        <h2 className="m-0 ml-4 font-bold">KUN Visual Novel Admin</h2>
       </Flex>
 
       <Flex align="center">

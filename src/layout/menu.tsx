@@ -38,7 +38,7 @@ export const LayoutMenu: FC = function () {
   const handleOk = () => {
     setIsModalOpen(false)
     userStore.resetInfo()
-    navigate('login')
+    navigate('/login')
   }
 
   const handleMenuClick: MenuProps['onClick'] = ({ key }: { key: string }) => {

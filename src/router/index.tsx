@@ -13,7 +13,7 @@ const rootRoutes: RouteObject[] = [
     path: '/login',
     element: lazyLoad(lazy(() => import('@/pages/login'))),
     meta: {
-      title: '登录',
+      title: 'Login',
       key: 'login',
     },
   },

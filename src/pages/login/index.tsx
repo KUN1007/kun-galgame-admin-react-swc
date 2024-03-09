@@ -88,9 +88,9 @@ const LoginPage: React.FC = () => {
         </Flex>
 
         <Flex>
-          <Button size="large" block className="mt-20" type="dashed">
+          <a className="mt-20 w-fll" href="https://www.kungal.com">
             GO TO Forum
-          </Button>
+          </a>
         </Flex>
       </Flex>
     </>
