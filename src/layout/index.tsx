@@ -38,6 +38,7 @@ const KunLayout: FC = () => {
           collapsed={collapsed}
           width={200}
           style={{ background: colorBgContainer }}
+          className="overflow-hidden rounded-lg"
         >
           <LayoutMenu />
 
