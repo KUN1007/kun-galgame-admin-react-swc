@@ -1,0 +1,39 @@
+interface MenuItem {
+  key: string
+  label: string
+}
+
+export const menuItem: MenuItem[] = [
+  {
+    key: 'overview',
+    label: '论坛概览',
+  },
+  {
+    key: 'user',
+    label: '用户管理',
+  },
+  {
+    key: 'topic',
+    label: '话题管理',
+  },
+  {
+    key: 'reply',
+    label: '回复管理',
+  },
+  {
+    key: 'comment',
+    label: '评论管理',
+  },
+  {
+    key: 'notice',
+    label: '公告管理',
+  },
+  {
+    key: 'info',
+    label: '操作记录',
+  },
+  {
+    key: 'logout',
+    label: '退出登录',
+  },
+]

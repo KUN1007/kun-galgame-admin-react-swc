@@ -1,7 +1,6 @@
-import { FC, createElement } from 'react'
+import { FC, createElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { MenuProps } from 'antd'
-import { Menu } from 'antd'
+import { Menu, Modal } from 'antd'
 import {
   BarChartOutlined,
   UserOutlined,
@@ -10,43 +9,11 @@ import {
   CommentOutlined,
   NotificationOutlined,
   ExclamationCircleOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons'
-
-interface MenuItem {
-  key: string
-  label: string
-}
-
-const itemName: MenuItem[] = [
-  {
-    key: 'overview',
-    label: '论坛概览',
-  },
-  {
-    key: 'user',
-    label: '用户管理',
-  },
-  {
-    key: 'topic',
-    label: '话题管理',
-  },
-  {
-    key: 'reply',
-    label: '回复管理',
-  },
-  {
-    key: 'comment',
-    label: '评论管理',
-  },
-  {
-    key: 'notice',
-    label: '公告管理',
-  },
-  {
-    key: 'info',
-    label: '操作记录',
-  },
-]
+import { useUserStore } from '@/store/modules/userStore'
+import { menuItem } from './menuItem'
+import type { MenuProps } from 'antd'
 
 const menuItems: MenuProps['items'] = [
   BarChartOutlined,
@@ -56,25 +23,50 @@ const menuItems: MenuProps['items'] = [
   CommentOutlined,
   NotificationOutlined,
   ExclamationCircleOutlined,
+  LogoutOutlined,
 ].map((icon, index) => ({
-  key: itemName[index].key,
+  key: menuItem[index].key,
   icon: createElement(icon),
-  label: itemName[index].label,
+  label: menuItem[index].label,
 }))
 
 export const LayoutMenu: FC = function () {
   const navigate = useNavigate()
+  const userStore = useUserStore()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleOk = () => {
+    setIsModalOpen(false)
+    userStore.resetInfo()
+    navigate('login')
+  }
+
   const handleMenuClick: MenuProps['onClick'] = ({ key }: { key: string }) => {
-    navigate(key)
+    if (key === 'logout') {
+      setIsModalOpen(true)
+    } else {
+      navigate(key)
+    }
   }
 
   return (
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      items={menuItems}
-      onClick={handleMenuClick}
-    />
+    <>
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        items={menuItems}
+        onClick={handleMenuClick}
+      />
+
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <h2>确定退出登录吗</h2>
+        <p>通常情况下登录状态将会持续一周</p>
+      </Modal>
+    </>
   )
 }

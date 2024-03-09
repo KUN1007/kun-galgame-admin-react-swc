@@ -13,6 +13,7 @@ const initialState: UserInfo = {
 interface KunPersistUserStore {
   user: UserInfo
   setInfo: (info: UserInfo) => void
+  resetInfo: () => void
   getToken: () => string
 }
 
@@ -21,6 +22,8 @@ export const useUserStore = create<KunPersistUserStore>()(
     (set, get) => ({
       user: initialState,
       setInfo: (info: UserInfo) => set({ user: info }),
+      resetInfo: () =>
+        set({ user: { uid: 0, name: '', avatar: '', token: '', roles: 0 } }),
       getToken: () => get().user.token,
     }),
     {
