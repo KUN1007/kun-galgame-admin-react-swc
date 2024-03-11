@@ -156,7 +156,8 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         className="overflow-y-scroll"
         style={{ maxHeight: 'calc(100dvh - 233px)' }}
         pagination={{
-          pageSize: 10,
+          defaultCurrent: 1,
+          total: topicList?.length,
         }}
         dataSource={topicList}
         renderItem={(topic) => (

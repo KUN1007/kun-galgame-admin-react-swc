@@ -70,7 +70,8 @@ export const SingleComment: FC<SingleCommentProps> = ({
         className="overflow-y-scroll"
         style={{ maxHeight: 'calc(100dvh - 233px)' }}
         pagination={{
-          pageSize: 10,
+          defaultCurrent: 1,
+          total: commentList?.length,
         }}
         renderItem={(comment) => (
           <List.Item

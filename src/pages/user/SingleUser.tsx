@@ -81,7 +81,8 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
         itemLayout="vertical"
         size="default"
         pagination={{
-          pageSize: 10,
+          defaultCurrent: 1,
+          total: userList?.length,
         }}
         dataSource={userList}
         renderItem={(user) => (
