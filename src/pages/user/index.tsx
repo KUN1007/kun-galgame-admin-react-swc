@@ -1,8 +1,13 @@
 import { FC, useState } from 'react'
 import dayjs from 'dayjs'
-import { Input, Avatar, Card, Descriptions, Switch, message } from 'antd'
-import { getUserByUid, getUserByUsername } from '@/api/user/user'
+import { Input, Avatar, Card, Descriptions, Switch, message, Flex } from 'antd'
+import {
+  getUserByUid,
+  getUserByUsername,
+  updateUserRoles,
+} from '@/api/user/user'
 import { SingleUser } from './SingleUser'
+import { useUserStore } from '@/store/modules/userStore'
 import type { DescriptionsProps } from 'antd'
 import type { User } from '@/types/api/user'
 import type { UserResponseData } from '@/api/user/user'
@@ -12,6 +17,7 @@ const { Meta } = Card
 
 const UserPage: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
+  const roles = useUserStore().user.roles
 
   const [uid, setUid] = useState('')
   const [name, setName] = useState('')
@@ -55,6 +61,24 @@ const UserPage: FC = () => {
   })
   const [users, setUsers] = useState<UserResponseData[]>([])
 
+  const onChange = async (uid: number, checked: boolean) => {
+    if (checked) {
+      await updateUserRoles(uid, 2)
+      messageApi.open({
+        type: 'success',
+        content: `已将用户 ${user.name} 设置为管理员`,
+      })
+      setUser({ ...user, roles: 2 })
+    } else {
+      await updateUserRoles(uid, 1)
+      messageApi.open({
+        type: 'success',
+        content: `已取消用户 ${user.name} 的管理员`,
+      })
+      setUser({ ...user, roles: 1 })
+    }
+  }
+
   const userFields = (user: User): DescriptionsProps['items'] => {
     return Object.keys(user).map((key, index) => {
       const label =
@@ -73,7 +97,7 @@ const UserPage: FC = () => {
     })
   }
 
-  const onSetUserUid = (value: string) => {
+  const onSearchUserUid = async (value: string) => {
     const userUid = parseInt(value)
     if (isNaN(userUid)) {
       messageApi.open({
@@ -81,13 +105,9 @@ const UserPage: FC = () => {
         content: '请输入正确的用户 UID',
       })
     } else {
-      setUid(value)
+      const response = await getUserByUid(parseInt(value))
+      setUser(response.data)
     }
-  }
-
-  const onSearchUserUid = async (value: string) => {
-    const response = await getUserByUid(parseInt(value))
-    setUser(response.data)
   }
 
   const onSearchUserName = async (value: string) => {
@@ -113,7 +133,7 @@ const UserPage: FC = () => {
         <Search
           placeholder="请输入用户的 uid"
           value={uid}
-          onChange={(event) => onSetUserUid(event.target.value)}
+          onChange={(event) => setUid(event.target.value)}
           onSearch={onSearchUserUid}
           enterButton="确定"
           className="mb-8"
@@ -144,13 +164,28 @@ const UserPage: FC = () => {
                 )
               }
               title={
-                <a
-                  className="mr-4"
-                  href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
-                  target="_blank"
-                >
-                  {user.name}
-                </a>
+                <Flex justify="space-between">
+                  <a
+                    className="mr-4"
+                    href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
+                    target="_blank"
+                  >
+                    {user.name}
+                  </a>
+
+                  {roles > 2 && user.roles <= 2 && (
+                    <div>
+                      <span className="text-sm font-normal">
+                        是否设置为管理员
+                      </span>
+                      <Switch
+                        className="ml-4"
+                        checked={user.roles >= 2}
+                        onChange={(checked) => onChange(user.uid, checked)}
+                      ></Switch>
+                    </div>
+                  )}
+                </Flex>
               }
               description={user.bio}
             />

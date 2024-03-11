@@ -13,9 +13,7 @@ export interface UserResponseData {
 
 type FindUserResponseData = KUNGalgameResponseData<User>
 type SearchUserResponseData = KUNGalgameResponseData<UserResponseData[]>
-type BanUserResponseData = KUNGalgameResponseData<string>
-type UnbanUserResponseData = KUNGalgameResponseData<string>
-type DeleteUserResponseData = KUNGalgameResponseData<null>
+type EmptyUserResponseData = KUNGalgameResponseData<null>
 
 export const getUserByUid = async (
   uid: number
@@ -33,26 +31,35 @@ export const getUserByUsername = async (
   return response
 }
 
+export const updateUserRoles = async (
+  uid: number,
+  roles: number
+): Promise<EmptyUserResponseData> => {
+  const url = `/admin/set`
+  const response = await fetchPut<EmptyUserResponseData>(url, { uid, roles })
+  return response
+}
+
 export const banUserByUid = async (
   uid: number
-): Promise<BanUserResponseData> => {
+): Promise<EmptyUserResponseData> => {
   const url = `/user/ban`
-  const response = await fetchPut<BanUserResponseData>(url, { uid })
+  const response = await fetchPut<EmptyUserResponseData>(url, { uid })
   return response
 }
 
 export const unbanUserByUid = async (
   uid: number
-): Promise<UnbanUserResponseData> => {
+): Promise<EmptyUserResponseData> => {
   const url = `/user/unban`
-  const response = await fetchPut<UnbanUserResponseData>(url, { uid })
+  const response = await fetchPut<EmptyUserResponseData>(url, { uid })
   return response
 }
 
 export const deleteUserByUid = async (
   uid: number
-): Promise<DeleteUserResponseData> => {
+): Promise<EmptyUserResponseData> => {
   const url = `/user/${uid}`
-  const response = await fetchDelete<DeleteUserResponseData>(url)
+  const response = await fetchDelete<EmptyUserResponseData>(url)
   return response
 }
