@@ -91,8 +91,15 @@ const UserPage: FC = () => {
   }
 
   const onSearchUserName = async (value: string) => {
-    const response = await getUserByUsername(value)
-    setUsers(response.data)
+    if (value.trim()) {
+      const response = await getUserByUsername(value)
+      setUsers(response.data)
+    } else {
+      messageApi.open({
+        type: 'error',
+        content: '输入不可为空',
+      })
+    }
   }
 
   return (
