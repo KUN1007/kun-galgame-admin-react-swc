@@ -63,7 +63,7 @@ const UserPage: FC = () => {
       if (Array.isArray(value)) {
         value = `[${value.length}]`
       } else if (label === 'Time') {
-        value = dayjs(value).format('MM-D-YYYY - h:mm:ss A')
+        value = dayjs(value).format('MM-D-YYYY - HH:mm:ss')
       }
       return {
         key: (index + 1).toString(),

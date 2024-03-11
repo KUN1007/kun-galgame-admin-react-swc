@@ -138,7 +138,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
               <Flex justify="space-between">
                 <span>UID: {user.uid}</span>
                 <span>
-                  注册时间: {dayjs(user.time).format('MM-D-YYYY - h:mm:ss A')}
+                  注册时间: {dayjs(user.time).format('MM-D-YYYY - HH:mm:ss')}
                 </span>
               </Flex>
             }

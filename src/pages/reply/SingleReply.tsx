@@ -116,12 +116,12 @@ export const SingleReply: FC<SingleReplyProps> = ({ replyList, reload }) => {
                   ))}
                   <p>
                     发布时间：
-                    {dayjs(reply.time).format('MM-D-YYYY - h:mm:ss A')}
+                    {dayjs(reply.time).format('MM-D-YYYY - HH:mm:ss')}
                   </p>
                   {reply.edited !== 0 && (
                     <p className="text-blue-500">
                       重新编辑于：
-                      {dayjs(reply.edited).format('MM-D-YYYY - h:mm:ss A')}
+                      {dayjs(reply.edited).format('MM-D-YYYY - HH:mm:ss')}
                     </p>
                   )}
                 </div>

@@ -166,28 +166,28 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
             actions={[
               <IconText
                 icon={EyeOutlined}
-                text="156"
+                text={topic.views.toString()}
                 key="list-vertical-star-o"
               />,
               <IconText
                 icon={CommentOutlined}
-                text="156"
+                text={topic.comments.toString()}
                 key="list-vertical-like-o"
               />,
               <IconText
                 icon={RollbackOutlined}
-                text="2"
+                text={topic.replies.toString()}
                 key="list-vertical-message"
               />,
 
               <span key="time">
                 发布时间：
-                {dayjs(topic.time).format('MM-D-YYYY - h:mm:ss')}
+                {dayjs(topic.time).format('MM-D-YYYY - HH:mm:ss')}
               </span>,
               topic.edited !== 0 && (
                 <span key="edited" className="text-blue-500">
                   重新编辑于：
-                  {dayjs(topic.edited).format('MM-D-YYYY - h:mm:ss')}
+                  {dayjs(topic.edited).format('MM-D-YYYY - HH:mm:ss')}
                 </span>
               ),
             ]}
