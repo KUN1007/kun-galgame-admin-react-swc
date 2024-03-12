@@ -28,6 +28,10 @@ const menuItems: MenuProps['items'] = [
   key: menuItem[index].key,
   icon: createElement(icon),
   label: menuItem[index].label,
+  children: menuItem[index].children?.map((children) => ({
+    key: children.key,
+    label: children.label,
+  })),
 }))
 
 export const LayoutMenu: FC = function () {
@@ -51,13 +55,7 @@ export const LayoutMenu: FC = function () {
 
   return (
     <>
-      <Menu
-        mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        items={menuItems}
-        onClick={handleMenuClick}
-      />
+      <Menu mode="inline" items={menuItems} onClick={handleMenuClick} />
 
       <Modal
         open={isModalOpen}

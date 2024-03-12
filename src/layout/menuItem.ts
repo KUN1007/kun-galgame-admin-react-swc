@@ -1,6 +1,7 @@
 interface MenuItem {
   key: string
   label: string
+  children?: MenuItem[]
 }
 
 export const menuItem: MenuItem[] = [
@@ -27,6 +28,20 @@ export const menuItem: MenuItem[] = [
   {
     key: 'notice',
     label: '公告管理',
+    children: [
+      {
+        key: 'notice/update-log',
+        label: '更新记录',
+      },
+      {
+        key: 'notice/non-moe',
+        label: '不萌记录',
+      },
+      {
+        key: 'notice/balance',
+        label: '收支公示',
+      },
+    ],
   },
   {
     key: 'info',

@@ -31,7 +31,20 @@ const rootRoutes: RouteObject[] = [
       },
       {
         path: '/notice',
-        element: lazyLoad(lazy(() => import('@/pages/notice'))),
+        children: [
+          {
+            path: 'update-log',
+            element: lazyLoad(lazy(() => import('@/pages/update-log'))),
+          },
+          {
+            path: 'non-moe',
+            element: lazyLoad(lazy(() => import('@/pages/non-moe'))),
+          },
+          {
+            path: 'balance',
+            element: lazyLoad(lazy(() => import('@/pages/balance'))),
+          },
+        ],
       },
       {
         path: '/reply',
