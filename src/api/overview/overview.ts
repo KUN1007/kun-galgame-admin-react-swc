@@ -14,8 +14,6 @@ export interface OverviewData {
   newUsers: number
 }
 
-export interface WeekData {}
-
 export type ModelName = 'topic' | 'reply' | 'comment' | 'user'
 type OverviewResponseData = KUNGalgameResponseData<OverviewData>
 type SumResponseData = KUNGalgameResponseData<SumData>
