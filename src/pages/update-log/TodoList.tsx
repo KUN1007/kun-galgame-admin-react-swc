@@ -3,8 +3,19 @@ import {
   getTodosApi,
   createTodoApi,
   updateTodoApi,
+  deleteTodoApi,
 } from '@/api/update-log/updateLog'
-import { List, Flex, Button, Modal, Input, message, Radio, Divider } from 'antd'
+import {
+  List,
+  Flex,
+  Button,
+  Modal,
+  Input,
+  message,
+  Radio,
+  Divider,
+  Popconfirm,
+} from 'antd'
 import type { Todo, UpdateTodoRequestData } from '@/api/update-log/updateLog'
 
 const { TextArea } = Input
@@ -68,9 +79,13 @@ const TodoList: FC = () => {
     }
   }
 
-  const handleDeleteTodo = (index: number) => {
-    const newTodos = todos.filter((_, i) => i !== index)
-    setTodos(newTodos)
+  const confirmDelete = async (todoId: number) => {
+    await deleteTodoApi(todoId)
+    messageApi.open({
+      type: 'success',
+      content: '删除待办成功',
+    })
+    await getTodos()
   }
 
   const getTodos = async () => {
@@ -129,13 +144,16 @@ const TodoList: FC = () => {
               <Button key={todo.todoId} onClick={() => handleUpdateTodo(todo)}>
                 编辑
               </Button>,
-              <Button
+              <Popconfirm
                 key={todo.todoId}
-                danger
-                onClick={() => handleDeleteTodo(todo.todoId)}
+                title="删除待办"
+                description={`确定删除 ${todo.content} 吗`}
+                onConfirm={() => confirmDelete(todo.todoId)}
+                okText="Yes"
+                cancelText="No"
               >
-                删除
-              </Button>,
+                <Button danger>删除</Button>
+              </Popconfirm>,
             ]}
           >
             {todo.content}
@@ -161,6 +179,7 @@ const TodoList: FC = () => {
           onChange={(event) =>
             setTodo({ ...todo, status: parseInt(event.target.value) })
           }
+          value={todo.status.toString()}
           defaultValue={todo.status.toString()}
         >
           <Radio.Button value="0">未开始</Radio.Button>

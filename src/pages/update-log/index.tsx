@@ -44,9 +44,12 @@ const UpdateLogPage: FC = () => {
   }
 
   return (
-    <>
+    <div
+      className="overflow-y-scroll"
+      style={{ maxHeight: 'calc(100dvh - 150px)' }}
+    >
       {contextHolder}
-      <h2>待办列表</h2>
+      <h2>创建待办</h2>
       <TodoList />
 
       <h2 className="mt-8">创建更新记录</h2>
@@ -81,7 +84,7 @@ const UpdateLogPage: FC = () => {
           确定发布更新
         </Button>
       </Flex>
-    </>
+    </div>
   )
 }
 

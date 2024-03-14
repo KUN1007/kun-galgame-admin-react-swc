@@ -1,4 +1,4 @@
-import { fetchGet, fetchPost, fetchPut } from '@/utils/request'
+import { fetchDelete, fetchGet, fetchPost, fetchPut } from '@/utils/request'
 
 export interface Todo {
   todoId: number
@@ -54,6 +54,14 @@ export const updateTodoApi = async (
 ): Promise<UpdateResponseData> => {
   const url = `/update/todo`
   const response = await fetchPut<UpdateResponseData>(url, data)
+  return response
+}
+
+export const deleteTodoApi = async (
+  todoId: number
+): Promise<UpdateResponseData> => {
+  const url = `/update/todo?todoId=${todoId}`
+  const response = await fetchDelete<UpdateResponseData>(url)
   return response
 }
 
