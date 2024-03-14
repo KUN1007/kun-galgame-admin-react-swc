@@ -21,7 +21,20 @@ export interface UpdateTodoRequestData {
   status: number
 }
 
+export type UpdateType =
+  | 'feat'
+  | 'pref'
+  | 'fix'
+  | 'styles'
+  | 'mod'
+  | 'chore'
+  | 'sec'
+  | 'refactor'
+  | 'docs'
+  | 'test'
+
 export interface UpdateLogRequestData {
+  type: UpdateType
   description: string
   language: Language
   time: string
