@@ -1,4 +1,4 @@
-import { fetchGet, fetchPost } from '@/utils/request'
+import { fetchGet, fetchPost, fetchPut } from '@/utils/request'
 
 export interface Todo {
   todoId: number
@@ -7,6 +7,18 @@ export interface Todo {
   language: string
   time: number
   completed_time: number
+}
+
+export interface CreateTodoRequestData {
+  content: string
+  status: number
+  language: Language
+}
+
+export interface UpdateTodoRequestData {
+  todoId: number
+  content: string
+  status: number
 }
 
 export interface UpdateLogRequestData {
@@ -30,14 +42,18 @@ export const getTodosApi = async (
 }
 
 export const createTodoApi = async (
-  content: string,
-  language: Language
+  data: CreateTodoRequestData
 ): Promise<UpdateResponseData> => {
   const url = `/update/todo`
-  const response = await fetchPost<UpdateResponseData>(url, {
-    content,
-    language,
-  })
+  const response = await fetchPost<UpdateResponseData>(url, data)
+  return response
+}
+
+export const updateTodoApi = async (
+  data: UpdateTodoRequestData
+): Promise<UpdateResponseData> => {
+  const url = `/update/todo`
+  const response = await fetchPut<UpdateResponseData>(url, data)
   return response
 }
 
