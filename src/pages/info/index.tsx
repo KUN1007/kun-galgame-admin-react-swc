@@ -5,11 +5,11 @@ import { getInfoApi } from '@/api/info/info'
 import type { Info } from '@/api/info/info'
 
 const InfoTypeMap: Record<string, string> = {
-  get: 'green',
-  post: 'yellow',
-  update: 'blue',
-  delete: 'red',
-  global: 'gray',
+  get: 'bg-green-500',
+  post: 'bg-yellow-500',
+  update: 'bg-blue-500',
+  delete: 'bg-red-500',
+  global: 'bg-gray-500',
 }
 
 const InfoPage: FC = () => {
@@ -60,9 +60,9 @@ const InfoPage: FC = () => {
             description={
               <Flex justify="space-between">
                 <span
-                  className={`px-2 text-white rounded-lg bg-${
+                  className={`px-2 ${
                     InfoTypeMap[info.type]
-                  }-500`}
+                  } text-white rounded-lg`}
                 >
                   {info.type.toLocaleUpperCase()}
                 </span>
