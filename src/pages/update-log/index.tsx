@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { Input, DatePicker, Flex, Button, message } from 'antd'
 import { createUpdateLogApi } from '@/api/update-log/updateLog'
+import TodoList from './TodoList'
 import type { UpdateLogRequestData } from '@/api/update-log/updateLog'
 import type { DatePickerProps } from 'antd'
 
@@ -26,7 +27,6 @@ const UpdateLogPage: FC = () => {
     const enUpdateLog: UpdateLogRequestData = {
       ...data,
       description: enContent,
-      language: 'en-us',
     }
     await createUpdateLogApi(enUpdateLog)
 
@@ -46,7 +46,10 @@ const UpdateLogPage: FC = () => {
   return (
     <>
       {contextHolder}
-      <h2>创建更新记录</h2>
+      <h2>待办列表</h2>
+      <TodoList />
+
+      <h2 className="mt-8">创建更新记录</h2>
 
       <Flex>
         <TextArea
