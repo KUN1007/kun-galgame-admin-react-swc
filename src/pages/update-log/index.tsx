@@ -45,6 +45,15 @@ const UpdateLogPage: FC = () => {
       type: 'success',
       content: '更新记录创建成功',
     })
+    setEnContent('')
+    setZhContent('')
+    setData({
+      type: 'feat',
+      description: '',
+      language: 'en-us',
+      time: '',
+      version: ',',
+    })
   }
 
   return (
@@ -97,7 +106,7 @@ const UpdateLogPage: FC = () => {
             className="w-40"
             options={[
               { value: 'feat', label: 'feat - 增加功能' },
-              { value: 'pref', label: 'pref - 性能提升' },
+              { value: 'pref', label: 'pref - 性能优化' },
               { value: 'fix', label: 'fix - 错误修复' },
               { value: 'styles', label: 'styles - 样式修改' },
               { value: 'mod', label: 'mod - 功能更改' },
@@ -105,7 +114,7 @@ const UpdateLogPage: FC = () => {
               { value: 'sec', label: 'sec - 安全提升' },
               { value: 'refactor', label: 'refactor - 代码重构' },
               { value: 'docs', label: 'docs - 文档修改' },
-              { value: 'test', label: 'test - 更改测试' },
+              { value: 'test', label: 'test - 测试用例' },
             ]}
           />
         </div>

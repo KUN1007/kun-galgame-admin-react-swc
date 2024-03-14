@@ -6,7 +6,7 @@ export interface Todo {
   content: string
   language: string
   time: number
-  completed_time: number
+  completedTime: number
 }
 
 export interface CreateTodoRequestData {

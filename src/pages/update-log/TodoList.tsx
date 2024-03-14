@@ -22,11 +22,13 @@ const { TextArea } = Input
 
 const getStatus = (status: number) => {
   if (status === 0) {
-    return '未开始'
+    return '待处理'
   } else if (status === 1) {
     return '进行中'
   } else if (status === 2) {
     return '已完成'
+  } else if (status === 3) {
+    return '已废弃'
   } else {
     return ''
   }
@@ -125,6 +127,7 @@ const TodoList: FC = () => {
           <Radio.Button value="0">未开始</Radio.Button>
           <Radio.Button value="1">进行中</Radio.Button>
           <Radio.Button value="2">已完成</Radio.Button>
+          <Radio.Button value="3">已废弃</Radio.Button>
         </Radio.Group>
         <Button type="primary" onClick={handleAddTodo} className="mb-4">
           创建新待办
@@ -185,6 +188,7 @@ const TodoList: FC = () => {
           <Radio.Button value="0">未开始</Radio.Button>
           <Radio.Button value="1">进行中</Radio.Button>
           <Radio.Button value="2">已完成</Radio.Button>
+          <Radio.Button value="3">已废弃</Radio.Button>
         </Radio.Group>
       </Modal>
     </>
