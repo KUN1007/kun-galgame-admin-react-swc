@@ -16,6 +16,7 @@ import {
   Divider,
   Popconfirm,
 } from 'antd'
+import dayjs from 'dayjs'
 import type { Todo, UpdateTodoRequestData } from '@/api/update-log/updateLog'
 
 const { TextArea } = Input
@@ -159,6 +160,15 @@ const TodoList: FC = () => {
               </Popconfirm>,
             ]}
           >
+            {todo.status === 2 && (
+              <List.Item.Meta
+                title={
+                  <span className="text-green-600">{`完成于: ${dayjs(
+                    todo.completedTime
+                  ).format('MM-D-YYYY - HH:mm:ss')}`}</span>
+                }
+              />
+            )}
             {todo.content}
           </List.Item>
         )}
