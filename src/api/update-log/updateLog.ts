@@ -36,8 +36,8 @@ export type UpdateType =
 
 export interface UpdateLogRequestData {
   type: UpdateType
-  description: string
-  language: Language
+  contentEn: string
+  contentZh: string
   time: string
   version: string
 }

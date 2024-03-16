@@ -42,20 +42,21 @@ const TodoList: FC = () => {
 
   const [todo, setTodo] = useState<UpdateTodoRequestData>({
     todoId: 0,
-    status: 0,
     contentEn: '',
     contentZh: '',
+    status: 0,
   })
-  const [enTodo, setEnTodo] = useState<string>('')
-  const [zhTodo, setZhTodo] = useState<string>('')
-  const [status, setStatus] = useState<number>(0)
   const [todos, setTodos] = useState<Todo[]>([])
 
   const handleAddTodo = async () => {
-    if (enTodo.trim() !== '' && zhTodo.trim() !== '') {
-      await createTodoApi({ contentEn: enTodo, contentZh: zhTodo, status })
-      setEnTodo('')
-      setZhTodo('')
+    if (todo.contentEn.trim() !== '' && todo.contentZh.trim() !== '') {
+      await createTodoApi(todo)
+      setTodo({
+        todoId: 0,
+        contentEn: '',
+        contentZh: '',
+        status: 0,
+      })
 
       await getTodos()
       messageApi.open({
@@ -105,15 +106,19 @@ const TodoList: FC = () => {
       {contextHolder}
       <Flex className="w-full">
         <Input
-          value={enTodo}
-          onChange={(event) => setEnTodo(event.target.value)}
+          value={todo.contentEn}
+          onChange={(event) =>
+            setTodo({ ...todo, contentEn: event.target.value })
+          }
           placeholder="English"
           className="mb-4"
           required
         />
         <Input
-          value={zhTodo}
-          onChange={(event) => setZhTodo(event.target.value)}
+          value={todo.contentZh}
+          onChange={(event) =>
+            setTodo({ ...todo, contentZh: event.target.value })
+          }
           placeholder="中文版"
           className="mb-4 ml-4"
           required
@@ -122,8 +127,10 @@ const TodoList: FC = () => {
 
       <Flex justify="space-between">
         <Radio.Group
-          onChange={(event) => setStatus(event.target.value)}
-          defaultValue={status.toString()}
+          onChange={(event) =>
+            setTodo({ ...todo, status: parseInt(event.target.value) })
+          }
+          defaultValue={todo.status.toString()}
         >
           <Radio.Button value="0">未开始</Radio.Button>
           <Radio.Button value="1">进行中</Radio.Button>

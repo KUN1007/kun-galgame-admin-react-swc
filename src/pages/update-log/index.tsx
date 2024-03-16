@@ -15,42 +15,27 @@ const UpdateLogPage: FC = () => {
 
   const [data, setData] = useState<UpdateLogRequestData>({
     type: 'feat',
-    description: '',
-    language: 'en-us',
+    contentEn: '',
+    contentZh: '',
     time: '',
     version: ',',
   })
-  const [enContent, setEnContent] = useState('')
-  const [zhContent, setZhContent] = useState('')
 
   const onChange: DatePickerProps['onChange'] = (_, dateString) => {
     setData({ ...data, time: dateString.toString() })
   }
 
   const handlePublishUpdate = async () => {
-    const enUpdateLog: UpdateLogRequestData = {
-      ...data,
-      description: enContent,
-    }
-    await createUpdateLogApi(enUpdateLog)
-
-    const zhUpdateLog: UpdateLogRequestData = {
-      ...data,
-      description: zhContent,
-      language: 'zh-cn',
-    }
-    await createUpdateLogApi(zhUpdateLog)
+    await createUpdateLogApi(data)
 
     messageApi.open({
       type: 'success',
       content: '更新记录创建成功',
     })
-    setEnContent('')
-    setZhContent('')
     setData({
       type: 'feat',
-      description: '',
-      language: 'en-us',
+      contentEn: '',
+      contentZh: '',
       time: '',
       version: ',',
     })
@@ -70,15 +55,19 @@ const UpdateLogPage: FC = () => {
       <Flex>
         <TextArea
           className="mb-4 mr-4"
-          value={enContent}
-          onChange={(event) => setEnContent(event.target.value)}
+          value={data.contentEn}
+          onChange={(event) =>
+            setData({ ...data, contentEn: event.target.value })
+          }
           rows={6}
           placeholder="English"
         />
         <TextArea
           className="mb-4"
-          value={zhContent}
-          onChange={(event) => setZhContent(event.target.value)}
+          value={data.contentZh}
+          onChange={(event) =>
+            setData({ ...data, contentZh: event.target.value })
+          }
           rows={6}
           placeholder="中文版"
         />
