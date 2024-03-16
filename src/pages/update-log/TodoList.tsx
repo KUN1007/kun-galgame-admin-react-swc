@@ -43,7 +43,8 @@ const TodoList: FC = () => {
   const [todo, setTodo] = useState<UpdateTodoRequestData>({
     todoId: 0,
     status: 0,
-    content: '',
+    contentEn: '',
+    contentZh: '',
   })
   const [enTodo, setEnTodo] = useState<string>('')
   const [zhTodo, setZhTodo] = useState<string>('')
@@ -52,8 +53,7 @@ const TodoList: FC = () => {
 
   const handleAddTodo = async () => {
     if (enTodo.trim() !== '' && zhTodo.trim() !== '') {
-      await createTodoApi({ content: enTodo, status, language: 'en-us' })
-      await createTodoApi({ content: zhTodo, status, language: 'zh-cn' })
+      await createTodoApi({ contentEn: enTodo, contentZh: zhTodo, status })
       setEnTodo('')
       setZhTodo('')
 
@@ -151,7 +151,7 @@ const TodoList: FC = () => {
               <Popconfirm
                 key={todo.todoId}
                 title="删除待办"
-                description={`确定删除 ${todo.content} 吗`}
+                description={`确定删除 ${todo.contentZh} 吗`}
                 onConfirm={() => confirmDelete(todo.todoId)}
                 okText="Yes"
                 cancelText="No"
@@ -160,16 +160,15 @@ const TodoList: FC = () => {
               </Popconfirm>,
             ]}
           >
-            {todo.status === 2 && (
-              <List.Item.Meta
-                title={
-                  <span className="text-green-600">{`完成于: ${dayjs(
-                    todo.completedTime
-                  ).format('MM-D-YYYY - HH:mm:ss')}`}</span>
-                }
-              />
-            )}
-            {todo.content}
+            <Flex vertical>
+              {todo.status === 2 && (
+                <p className="text-green-600">{`完成于: ${dayjs(
+                  todo.completedTime
+                ).format('MM-D-YYYY - HH:mm:ss')}`}</p>
+              )}
+              <p>{todo.contentEn}</p>
+              <p>{todo.contentZh}</p>
+            </Flex>
           </List.Item>
         )}
       />
@@ -180,11 +179,21 @@ const TodoList: FC = () => {
         onOk={handleEditConfirm}
         onCancel={() => setOpen(false)}
       >
+        <h3>English</h3>
         <TextArea
           showCount
-          value={todo.content}
+          value={todo.contentEn}
           onChange={(event) =>
-            setTodo({ ...todo, content: event.target.value })
+            setTodo({ ...todo, contentEn: event.target.value })
+          }
+          className="h-32 mb-4"
+        />
+        <h3>简体中文</h3>
+        <TextArea
+          showCount
+          value={todo.contentZh}
+          onChange={(event) =>
+            setTodo({ ...todo, contentZh: event.target.value })
           }
           className="h-32 mb-4"
         />

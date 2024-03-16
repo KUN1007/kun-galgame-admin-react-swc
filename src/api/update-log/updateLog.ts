@@ -3,21 +3,22 @@ import { fetchDelete, fetchGet, fetchPost, fetchPut } from '@/utils/request'
 export interface Todo {
   todoId: number
   status: number
-  content: string
-  language: string
+  contentEn: string
+  contentZh: string
   time: number
   completedTime: number
 }
 
 export interface CreateTodoRequestData {
-  content: string
+  contentEn: string
+  contentZh: string
   status: number
-  language: Language
 }
 
 export interface UpdateTodoRequestData {
   todoId: number
-  content: string
+  contentEn: string
+  contentZh: string
   status: number
 }
 
