@@ -17,6 +17,7 @@ import {
   Flex,
   Switch,
   Tooltip,
+  Checkbox,
 } from 'antd'
 import dayjs from 'dayjs'
 import { useUserStore } from '@/store/modules/userStore'
@@ -25,6 +26,7 @@ import {
   deleteTopicByTidApi,
   updateTopicStatusApi,
 } from '@/api/topic/topic'
+import { section } from './category'
 import type { Topic, UpdateTopicRequestData } from '@/api/topic/topic'
 
 const { CheckableTag } = Tag
@@ -51,6 +53,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedSections, setSelectedSections] = useState<string[]>([])
   const [topic, setTopic] = useState<Topic>({
     tid: 0,
     user: {
@@ -60,6 +63,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
     },
     title: '',
     category: [],
+    section: [],
     tags: [],
     content: '',
     time: 0,
@@ -74,22 +78,21 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   const handleUpdateTopic = (topic: Topic) => {
     setTopic(topic)
     setSelectedCategories(topic.category)
+    setSelectedSections(topic.section)
     setOpen(true)
   }
 
-  const setTopicData = (data: string, field: string) => {
-    setTopic((prevTopic) => ({
-      ...prevTopic,
-      [field]: data,
-    }))
-  }
-
   const handleEditConfirm = async () => {
-    if (!selectedCategories.length || !topic.tags.length) {
+    if (
+      !selectedCategories.length ||
+      !topic.section.length ||
+      !topic.tags.length
+    ) {
       messageApi.open({
         type: 'warning',
-        content: '请至少选择一个标签或分类',
+        content: '请至少选择一个标签、分类、分区',
       })
+      return
     }
     const topicData: UpdateTopicRequestData = {
       tid: topic.tid,
@@ -100,6 +103,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         .split(',')
         .map((tag) => tag.trim()),
       category: selectedCategories,
+      section: selectedSections,
     }
 
     const res = await updateTopicByTidApi(topicData)
@@ -123,8 +127,8 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   }
 
   const handleDeleteTopic = (tid: number, content: string) => {
-    setTopicData(tid.toString(), 'tid')
-    setTopicData(content, 'content')
+    setTopic({ ...topic, tid })
+    setTopic({ ...topic, content })
     setOpenDelete(true)
   }
 
@@ -277,26 +281,29 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
           showCount
           value={topic.title}
           maxLength={40}
-          onChange={(event) => setTopicData(event.target.value, 'title')}
+          onChange={(event) =>
+            setTopic({ ...topic, title: event.target.value })
+          }
         />
-
         <h4 className="font-bold">内容</h4>
         <TextArea
           showCount
           value={topic.content}
           maxLength={10007}
-          onChange={(event) => setTopicData(event.target.value, 'content')}
+          onChange={(event) =>
+            setTopic({ ...topic, content: event.target.value })
+          }
           className="h-64 mb-4"
         />
-
         <h4 className="font-bold">标签（注意，标签必须用英文逗号分隔）</h4>
         <Input
           showCount
           value={topic.tags}
-          onChange={(event) => setTopicData(event.target.value, 'tags')}
+          onChange={(event) =>
+            setTopic({ ...topic, tags: [event.target.value] })
+          }
           className="h-8 mb-4"
         />
-
         <h4 className="font-bold">
           分类（注意, 分类一旦选择了 Others, 则不能选择其它两项）
         </h4>
@@ -309,6 +316,13 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
             {cat}
           </CheckableTag>
         ))}
+        <h4 className="mt-4 font-bold">分区（注意, 一个分类只能有一个分区）</h4>
+
+        <Checkbox.Group
+          options={section}
+          defaultValue={selectedSections}
+          onChange={setSelectedSections}
+        />
       </Modal>
 
       <Modal

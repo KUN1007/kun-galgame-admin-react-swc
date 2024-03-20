@@ -147,6 +147,11 @@ const TodoList: FC = () => {
       <List
         bordered
         dataSource={todos}
+        pagination={{
+          defaultPageSize: 3,
+          defaultCurrent: 1,
+          total: todos?.length,
+        }}
         renderItem={(todo) => (
           <List.Item
             actions={[

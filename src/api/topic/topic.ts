@@ -11,6 +11,7 @@ export interface Topic {
   user: User
   title: string
   category: string[]
+  section: string[]
   tags: string[]
   content: string
   time: number
@@ -30,6 +31,7 @@ export interface UpdateTopicRequestData {
   content: string
   tags: string[]
   category: string[]
+  section: string[]
 }
 
 export interface UpdateTopicStatusRequestData {
