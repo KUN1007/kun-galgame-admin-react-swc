@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import { Input, message } from 'antd'
 import { getTopicsByContentApi } from '@/api/topic/topic'
 import { SingleTopic } from './SingleTopic'
+import { useUserStore } from '@/store/modules/userStore'
 import type { Topic } from '@/api/topic/topic'
 import type { ChangeEvent } from 'react'
 
@@ -9,6 +10,7 @@ const { Search } = Input
 
 const TopicPage: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
+  const roles = useUserStore().user.roles
 
   const [content, setContent] = useState('')
   const [topics, setTopics] = useState<Topic[]>()
@@ -16,10 +18,19 @@ const TopicPage: FC = () => {
   const handleContentChange = (e: ChangeEvent<HTMLInputElement>) =>
     setContent(e.target.value)
 
+  const getTopics = async (value: string) => {
+    const response = await getTopicsByContentApi(value)
+    setTopics(response.data)
+  }
+
   const onSearchTopic = async (value: string) => {
+    if (roles > 2) {
+      await getTopics(value)
+      return
+    }
+
     if (value.trim()) {
-      const response = await getTopicsByContentApi(value)
-      setTopics(response.data)
+      await getTopics(value)
     } else {
       messageApi.open({
         type: 'error',
