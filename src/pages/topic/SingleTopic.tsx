@@ -318,7 +318,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
         <Checkbox.Group
           options={section}
-          defaultValue={topic.section}
+          value={topic.section}
           onChange={(value) => setTopic({ ...topic, section: value })}
         />
       </Modal>
