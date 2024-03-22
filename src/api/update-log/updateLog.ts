@@ -5,7 +5,11 @@ export interface Todo {
   status: number
   contentEn: string
   contentZh: string
+  creator: string
+  creator_id: number
   time: number
+  completer: string
+  completer_id: number
   completedTime: number
 }
 
