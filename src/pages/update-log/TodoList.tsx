@@ -39,7 +39,6 @@ const TodoList: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const [open, setOpen] = useState(false)
-
   const [todo, setTodo] = useState<UpdateTodoRequestData>({
     todoId: 0,
     contentEn: '',
@@ -106,7 +105,6 @@ const TodoList: FC = () => {
       {contextHolder}
       <Flex className="w-full">
         <Input
-          value={todo.contentEn}
           onChange={(event) =>
             setTodo({ ...todo, contentEn: event.target.value })
           }
@@ -115,7 +113,6 @@ const TodoList: FC = () => {
           required
         />
         <Input
-          value={todo.contentZh}
           onChange={(event) =>
             setTodo({ ...todo, contentZh: event.target.value })
           }
