@@ -52,8 +52,6 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [selectedSections, setSelectedSections] = useState<string[]>([])
   const [topic, setTopic] = useState<Topic>({
     tid: 0,
     user: {
@@ -77,17 +75,17 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
   const handleUpdateTopic = (topic: Topic) => {
     setTopic(topic)
-    setSelectedCategories(topic.category)
-    setSelectedSections(topic.section)
     setOpen(true)
   }
 
   const handleEditConfirm = async () => {
-    if (
-      !selectedCategories.length ||
-      !topic.section.length ||
-      !topic.tags.length
-    ) {
+    if (!topic.category.length || !topic.section.length || !topic.tags.length) {
+      console.log(
+        topic.category.length,
+        topic.section.length,
+        topic.tags.length
+      )
+
       messageApi.open({
         type: 'warning',
         content: '请至少选择一个标签、分类、分区',
@@ -102,8 +100,8 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         .toString()
         .split(',')
         .map((tag) => tag.trim()),
-      category: selectedCategories,
-      section: selectedSections,
+      category: topic.category,
+      section: topic.section,
     }
 
     const res = await updateTopicByTidApi(topicData)
@@ -145,11 +143,11 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
     }
   }
 
-  const handleChange = (tag: string, checked: boolean) => {
-    const nextSelectedTags = checked
-      ? [...selectedCategories, tag]
-      : selectedCategories.filter((t) => t !== tag)
-    setSelectedCategories(nextSelectedTags)
+  const handleChange = (cat: string, checked: boolean) => {
+    const nextSelectedCategories = checked
+      ? [...topic.category, cat]
+      : topic.category.filter((c) => c !== cat)
+    setTopic({ ...topic, category: nextSelectedCategories })
   }
 
   return (
@@ -310,7 +308,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         {categories.map((cat) => (
           <CheckableTag
             key={cat}
-            checked={selectedCategories.includes(cat)}
+            checked={topic.category.includes(cat)}
             onChange={(checked) => handleChange(cat, checked)}
           >
             {cat}
@@ -320,8 +318,8 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
         <Checkbox.Group
           options={section}
-          defaultValue={selectedSections}
-          onChange={setSelectedSections}
+          defaultValue={topic.section}
+          onChange={(value) => setTopic({ ...topic, section: value })}
         />
       </Modal>
 
