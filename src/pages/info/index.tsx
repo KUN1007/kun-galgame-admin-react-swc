@@ -5,11 +5,11 @@ import { getInfoApi } from '@/api/info/info'
 import type { Info } from '@/api/info/info'
 
 const InfoTypeMap: Record<string, string> = {
-  get: 'bg-green-500',
-  post: 'bg-yellow-500',
-  update: 'bg-blue-500',
-  delete: 'bg-red-500',
-  global: 'bg-gray-500',
+  get: 'bg-green-600',
+  post: 'bg-yellow-600',
+  update: 'bg-blue-600',
+  delete: 'bg-red-600',
+  global: 'bg-gray-600',
 }
 
 const InfoPage: FC = () => {
@@ -45,7 +45,7 @@ const InfoPage: FC = () => {
                   {info.user.avatar ? (
                     <Avatar src={info.user.avatar} />
                   ) : (
-                    <Avatar className="text-white bg-blue-500">
+                    <Avatar className="text-white bg-blue-600">
                       {info.user.name[0].toUpperCase()}
                     </Avatar>
                   )}

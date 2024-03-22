@@ -28,3 +28,35 @@ export const section: Option[] = [
   { value: 'o-novel', label: 'O-轻小说' },
   { value: 'o-other', label: 'O-其它' },
 ]
+
+export const sectionMap: Record<string, string> = {
+  'g-walkthrough': 'G-攻略',
+  'g-chatting': 'G-闲聊',
+  'g-seeking': 'G-寻求资源',
+  'g-news': 'G-资讯',
+  'g-releases': 'G-新作消息',
+  'g-other': 'G-其它',
+
+  't-crack': 'T-逆向工程',
+  't-languages': 'T-编程语言',
+  't-practical': 'T-实用技术',
+  't-linux': 'T-Linux',
+  't-web': 'T-Web',
+  't-android': 'T-Android',
+  't-adobe': 'T-Adobe',
+  't-ai': 'T-AI',
+  't-algorithm': 'T-算法',
+  't-other': 'T-其它',
+
+  'o-anime': 'O-动漫',
+  'o-comics': 'O-漫画',
+  'o-music': 'O-音乐',
+  'o-novel': 'O-轻小说',
+  'o-other': 'O-其它',
+}
+
+export const sectionColorMap: Record<string, string> = {
+  g: 'border-blue-600 text-blue-600',
+  t: 'border-green-600 text-green-600',
+  o: 'border-pink-600 text-pink-600',
+}

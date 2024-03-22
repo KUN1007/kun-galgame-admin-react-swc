@@ -26,7 +26,7 @@ import {
   deleteTopicByTidApi,
   updateTopicStatusApi,
 } from '@/api/topic/topic'
-import { section } from './category'
+import { section, sectionMap, sectionColorMap } from './category'
 import type { Topic, UpdateTopicRequestData } from '@/api/topic/topic'
 
 const { CheckableTag } = Tag
@@ -225,18 +225,30 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
               }
               description={
                 <Flex className="items-center justify-between">
-                  <div>
+                  <Flex align="center">
                     {topic.category.map((tag, index) => (
                       <CheckableTag checked key={index}>
                         {tag}
                       </CheckableTag>
                     ))}
+
+                    {topic.section.map((sec, index) => (
+                      <span
+                        className={`leading-5 px-2 mr-2 text-xs border ${
+                          sectionColorMap[sec[0]]
+                        } rounded`}
+                        key={index}
+                      >
+                        {sectionMap[sec]}
+                      </span>
+                    ))}
+
                     {topic.tags.map((tag, index) => (
                       <Tag key={index} color="blue">
                         {tag}
                       </Tag>
                     ))}
-                  </div>
+                  </Flex>
 
                   <div>
                     <Button
