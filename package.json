@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "pm2 serve dist 8888 --spa",
+    "stop": "pm2 delete static-page-server-8888"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
