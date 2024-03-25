@@ -52,7 +52,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-  const [topic, setTopic] = useState<Topic>({
+  const [topicData, setTopicData] = useState<Topic>({
     tid: 0,
     user: {
       uid: 0,
@@ -74,37 +74,35 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   })
 
   const handleUpdateTopic = (topic: Topic) => {
-    setTopic(topic)
+    setTopicData(topic)
     setOpen(true)
   }
 
   const handleEditConfirm = async () => {
-    if (!topic.category.length || !topic.section.length || !topic.tags.length) {
-      console.log(
-        topic.category.length,
-        topic.section.length,
-        topic.tags.length
-      )
-
+    if (
+      !topicData.category.length ||
+      !topicData.section.length ||
+      !topicData.tags.length
+    ) {
       messageApi.open({
         type: 'warning',
         content: '请至少选择一个标签、分类、分区',
       })
       return
     }
-    const topicData: UpdateTopicRequestData = {
-      tid: topic.tid,
-      title: topic.title,
-      content: topic.content,
-      tags: topic.tags
+    const requestData: UpdateTopicRequestData = {
+      tid: topicData.tid,
+      title: topicData.title,
+      content: topicData.content,
+      tags: topicData.tags
         .toString()
         .split(',')
         .map((tag) => tag.trim()),
-      category: topic.category,
-      section: topic.section,
+      category: topicData.category,
+      section: topicData.section,
     }
 
-    const res = await updateTopicByTidApi(topicData)
+    const res = await updateTopicByTidApi(requestData)
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
@@ -125,13 +123,15 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   }
 
   const handleDeleteTopic = (tid: number, content: string) => {
-    setTopic({ ...topic, tid })
-    setTopic({ ...topic, content })
+    setTopicData({ ...topicData, tid })
+    setTopicData({ ...topicData, content })
     setOpenDelete(true)
   }
 
   const handleDeleteConfirm = async () => {
-    const res = await deleteTopicByTidApi(topic.tid)
+    console.log(topicData.tid)
+
+    const res = await deleteTopicByTidApi(topicData.tid)
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
@@ -145,9 +145,9 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
   const handleChange = (cat: string, checked: boolean) => {
     const nextSelectedCategories = checked
-      ? [...topic.category, cat]
-      : topic.category.filter((c) => c !== cat)
-    setTopic({ ...topic, category: nextSelectedCategories })
+      ? [...topicData.category, cat]
+      : topicData.category.filter((c) => c !== cat)
+    setTopicData({ ...topicData, category: nextSelectedCategories })
   }
 
   return (
@@ -289,28 +289,28 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         <h4 className="font-bold">标题</h4>
         <Input
           showCount
-          value={topic.title}
+          value={topicData.title}
           maxLength={40}
           onChange={(event) =>
-            setTopic({ ...topic, title: event.target.value })
+            setTopicData({ ...topicData, title: event.target.value })
           }
         />
         <h4 className="font-bold">内容</h4>
         <TextArea
           showCount
-          value={topic.content}
+          value={topicData.content}
           maxLength={10007}
           onChange={(event) =>
-            setTopic({ ...topic, content: event.target.value })
+            setTopicData({ ...topicData, content: event.target.value })
           }
           className="h-64 mb-4"
         />
         <h4 className="font-bold">标签（注意，标签必须用英文逗号分隔）</h4>
         <Input
           showCount
-          value={topic.tags}
+          value={topicData.tags}
           onChange={(event) =>
-            setTopic({ ...topic, tags: [event.target.value] })
+            setTopicData({ ...topicData, tags: [event.target.value] })
           }
           className="h-8 mb-4"
         />
@@ -320,7 +320,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         {categories.map((cat) => (
           <CheckableTag
             key={cat}
-            checked={topic.category.includes(cat)}
+            checked={topicData.category.includes(cat)}
             onChange={(checked) => handleChange(cat, checked)}
           >
             {cat}
@@ -330,8 +330,8 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
 
         <Checkbox.Group
           options={section}
-          value={topic.section}
-          onChange={(value) => setTopic({ ...topic, section: value })}
+          value={topicData.section}
+          onChange={(value) => setTopicData({ ...topicData, section: value })}
         />
       </Modal>
 
@@ -342,7 +342,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
         onCancel={() => setOpenDelete(false)}
       >
         <div className="p-4 my-4 border-4 border-blue-100 rounded-lg">
-          <p>{topic.content.slice(0, 233)}</p>
+          <p>{topicData.content.slice(0, 233)}</p>
         </div>
         <p>您确定删除话题吗, 该操作不可撤销</p>
       </Modal>
