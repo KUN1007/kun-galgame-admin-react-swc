@@ -66,7 +66,7 @@ const TodoList: FC = () => {
   }
 
   const handleUpdateTodo = async (value: Todo) => {
-    setTodo({ ...value })
+    setTodo(value)
     setOpen(true)
   }
 

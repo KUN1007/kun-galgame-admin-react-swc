@@ -123,8 +123,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   }
 
   const handleDeleteTopic = (tid: number, content: string) => {
-    setTopicData({ ...topicData, tid })
-    setTopicData({ ...topicData, content })
+    setTopicData({ ...topicData, tid, content })
     setOpenDelete(true)
   }
 
