@@ -15,18 +15,13 @@ import {
   message,
   Button,
   Flex,
-  Switch,
-  Tooltip,
   Checkbox,
 } from 'antd'
 import dayjs from 'dayjs'
 import { useUserStore } from '@/store/modules/userStore'
-import {
-  updateTopicByTidApi,
-  deleteTopicByTidApi,
-  updateTopicStatusApi,
-} from '@/api/topic/topic'
+import { updateTopicByTidApi, deleteTopicByTidApi } from '@/api/topic/topic'
 import { section, sectionMap, sectionColorMap } from './category'
+import { TopicHeader } from './TopicHeader'
 import type { Topic, UpdateTopicRequestData } from '@/api/topic/topic'
 
 const { CheckableTag } = Tag
@@ -114,14 +109,6 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
     }
   }
 
-  const onChange = async (tid: number, checked: boolean) => {
-    if (checked) {
-      await updateTopicStatusApi({ tid, status: 1 })
-    } else {
-      await updateTopicStatusApi({ tid, status: 0 })
-    }
-  }
-
   const handleDeleteTopic = (tid: number, content: string) => {
     setTopicData({ ...topicData, tid, content })
     setOpenDelete(true)
@@ -203,25 +190,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
                   </Avatar>
                 )
               }
-              title={
-                <Flex justify="space-between">
-                  <a
-                    href={`https://www.kungal.com/topic/${topic.tid}`}
-                    target="_blank"
-                  >
-                    {topic.title}
-                  </a>
-                  <Tooltip placement="bottom" title="是否封禁话题">
-                    <Switch
-                      className="shrink-0"
-                      checkedChildren="封禁"
-                      unCheckedChildren="正常"
-                      defaultChecked={topic.status === 1}
-                      onChange={(checked) => onChange(topic.tid, checked)}
-                    />
-                  </Tooltip>
-                </Flex>
-              }
+              title={<TopicHeader topic={topic} reload={reload} />}
               description={
                 <Flex className="items-center justify-between">
                   <Flex align="center">
