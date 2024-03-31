@@ -1,6 +1,5 @@
 import { fetchDelete, fetchGet, fetchPut } from '@/utils/request'
 import type { User } from '@/types/api/user'
-// import objectToQueryParams from '@/utils/objectToQueryParams'
 
 export interface UserResponseData {
   uid: number
@@ -11,8 +10,10 @@ export interface UserResponseData {
   status: number
 }
 
-type FindUserResponseData = KUNGalgameResponseData<User>
-type SearchUserResponseData = KUNGalgameResponseData<UserResponseData[]>
+type FindUserResponseData = KUNGalgameResponseData<User | null>
+type SearchUserResponseData = KUNGalgameResponseData<
+  UserResponseData[] | UserResponseData | null
+>
 type EmptyUserResponseData = KUNGalgameResponseData<null>
 
 export const getUserByUid = async (
@@ -24,9 +25,10 @@ export const getUserByUid = async (
 }
 
 export const getUserByUsername = async (
-  name: string
+  name: string,
+  exactly?: boolean
 ): Promise<SearchUserResponseData> => {
-  const url = `/user/search?name=${name}`
+  const url = `/user/search?name=${name}&exactly=${exactly ? 1 : 0}`
   const response = await fetchGet<SearchUserResponseData>(url)
   return response
 }

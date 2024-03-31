@@ -23,7 +23,7 @@ const kunFetchRequest = async <T>(
 
   const headers = {
     ...options.headers,
-    Authorization: `Bearer ${userStore}`,
+    Authorization: `Bearer ${userStore}`
   }
 
   const requestKey = JSON.stringify({ fullUrl, options })
@@ -59,7 +59,7 @@ const fetchGet = async <T>(
   const options: FetchOptions = {
     method: 'GET',
     credentials: 'include',
-    headers: headers,
+    headers: headers
   }
 
   return await kunFetchRequest<T>(url, options)
@@ -76,9 +76,9 @@ const fetchPost = async <T>(
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      ...headers,
+      ...headers
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   }
 
   return await kunFetchRequest<T>(url, options)
@@ -95,9 +95,9 @@ const fetchPut = async <T>(
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      ...headers,
+      ...headers
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   }
 
   return await kunFetchRequest<T>(url, options)
@@ -110,7 +110,7 @@ const fetchDelete = async <T>(
   const options: FetchOptions = {
     method: 'DELETE',
     credentials: 'include',
-    headers: headers,
+    headers: headers
   }
 
   return await kunFetchRequest<T>(url, options)
@@ -125,9 +125,9 @@ const fetchPostWithFormData = async <T>(
     method: 'POST',
     credentials: 'include',
     headers: {
-      ...headers,
+      ...headers
     },
-    body: formData,
+    body: formData
   }
 
   return await kunFetchRequest<T>(url, options)

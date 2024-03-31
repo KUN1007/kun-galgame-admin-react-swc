@@ -7,15 +7,15 @@ import KunLayout from '@/layout'
 const rootRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/overview" />,
+    element: <Navigate to='/overview' />
   },
   {
     path: '/login',
     element: lazyLoad(lazy(() => import('@/pages/login'))),
     meta: {
       title: 'Login',
-      key: 'login',
-    },
+      key: 'login'
+    }
   },
   {
     path: '/',
@@ -23,51 +23,51 @@ const rootRoutes: RouteObject[] = [
     children: [
       {
         path: '/comment',
-        element: lazyLoad(lazy(() => import('@/pages/comment'))),
+        element: lazyLoad(lazy(() => import('@/pages/comment')))
       },
       {
         path: '/overview',
-        element: lazyLoad(lazy(() => import('@/pages/overview'))),
+        element: lazyLoad(lazy(() => import('@/pages/overview')))
       },
       {
         path: '/notice',
         children: [
           {
             path: 'update-log',
-            element: lazyLoad(lazy(() => import('@/pages/update-log'))),
+            element: lazyLoad(lazy(() => import('@/pages/update-log')))
           },
           {
             path: 'non-moe',
-            element: lazyLoad(lazy(() => import('@/pages/non-moe'))),
+            element: lazyLoad(lazy(() => import('@/pages/non-moe')))
           },
           {
             path: 'balance',
-            element: lazyLoad(lazy(() => import('@/pages/balance'))),
-          },
-        ],
+            element: lazyLoad(lazy(() => import('@/pages/balance')))
+          }
+        ]
       },
       {
         path: '/reply',
-        element: lazyLoad(lazy(() => import('@/pages/reply'))),
+        element: lazyLoad(lazy(() => import('@/pages/reply')))
       },
       {
         path: '/topic',
-        element: lazyLoad(lazy(() => import('@/pages/topic'))),
+        element: lazyLoad(lazy(() => import('@/pages/topic')))
       },
       {
         path: '/user',
-        element: lazyLoad(lazy(() => import('@/pages/user'))),
+        element: lazyLoad(lazy(() => import('@/pages/user')))
       },
       {
         path: '/info',
-        element: lazyLoad(lazy(() => import('@/pages/info'))),
-      },
-    ],
+        element: lazyLoad(lazy(() => import('@/pages/info')))
+      }
+    ]
   },
   {
     path: '*',
-    element: <Navigate to="/404" />,
-  },
+    element: <Navigate to='/404' />
+  }
 ]
 
 const router = createBrowserRouter(rootRoutes)
