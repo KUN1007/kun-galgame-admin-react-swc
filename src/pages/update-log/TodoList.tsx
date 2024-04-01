@@ -3,7 +3,7 @@ import {
   getTodosApi,
   createTodoApi,
   updateTodoApi,
-  deleteTodoApi,
+  deleteTodoApi
 } from '@/api/update-log/updateLog'
 import {
   List,
@@ -14,7 +14,7 @@ import {
   message,
   Radio,
   Divider,
-  Popconfirm,
+  Popconfirm
 } from 'antd'
 import dayjs from 'dayjs'
 import type { Todo, UpdateTodoRequestData } from '@/api/update-log/updateLog'
@@ -43,7 +43,7 @@ const TodoList: FC = () => {
     todoId: 0,
     contentEn: '',
     contentZh: '',
-    status: 0,
+    status: 0
   })
   const [todos, setTodos] = useState<Todo[]>([])
 
@@ -54,13 +54,13 @@ const TodoList: FC = () => {
         todoId: 0,
         contentEn: '',
         contentZh: '',
-        status: 0,
+        status: 0
       })
 
       await getTodos()
       messageApi.open({
         type: 'success',
-        content: '创建待办成功',
+        content: '创建待办成功'
       })
     }
   }
@@ -75,7 +75,7 @@ const TodoList: FC = () => {
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
-        content: '待办编辑成功',
+        content: '待办编辑成功'
       })
       await getTodos()
       setOpen(false)
@@ -86,7 +86,7 @@ const TodoList: FC = () => {
     await deleteTodoApi(todoId)
     messageApi.open({
       type: 'success',
-      content: '删除待办成功',
+      content: '删除待办成功'
     })
     await getTodos()
   }
@@ -103,38 +103,37 @@ const TodoList: FC = () => {
   return (
     <>
       {contextHolder}
-      <Flex className="w-full">
+      <Flex className='w-full'>
         <Input
           onChange={(event) =>
             setTodo({ ...todo, contentEn: event.target.value })
           }
-          placeholder="English"
-          className="mb-4"
+          placeholder='English'
+          className='mb-4'
           required
         />
         <Input
           onChange={(event) =>
             setTodo({ ...todo, contentZh: event.target.value })
           }
-          placeholder="中文版"
-          className="mb-4 ml-4"
+          placeholder='中文版'
+          className='mb-4 ml-4'
           required
         />
       </Flex>
 
-      <Flex justify="space-between">
+      <Flex justify='space-between'>
         <Radio.Group
           onChange={(event) =>
             setTodo({ ...todo, status: parseInt(event.target.value) })
           }
-          defaultValue={todo.status.toString()}
-        >
-          <Radio.Button value="0">未开始</Radio.Button>
-          <Radio.Button value="1">进行中</Radio.Button>
-          <Radio.Button value="2">已完成</Radio.Button>
-          <Radio.Button value="3">已废弃</Radio.Button>
+          defaultValue={todo.status.toString()}>
+          <Radio.Button value='0'>未开始</Radio.Button>
+          <Radio.Button value='1'>进行中</Radio.Button>
+          <Radio.Button value='2'>已完成</Radio.Button>
+          <Radio.Button value='3'>已废弃</Radio.Button>
         </Radio.Group>
-        <Button type="primary" onClick={handleAddTodo} className="mb-4">
+        <Button type='primary' onClick={handleAddTodo} className='mb-4'>
           创建新待办
         </Button>
       </Flex>
@@ -147,7 +146,7 @@ const TodoList: FC = () => {
         pagination={{
           defaultPageSize: 3,
           defaultCurrent: 1,
-          total: todos?.length,
+          total: todos?.length
         }}
         renderItem={(todo) => (
           <List.Item
@@ -159,19 +158,17 @@ const TodoList: FC = () => {
               </Button>,
               <Popconfirm
                 key={todo.todoId}
-                title="删除待办"
+                title='删除待办'
                 description={`确定删除 ${todo.contentZh} 吗`}
                 onConfirm={() => confirmDelete(todo.todoId)}
-                okText="Yes"
-                cancelText="No"
-              >
+                okText='Yes'
+                cancelText='No'>
                 <Button danger>删除</Button>
-              </Popconfirm>,
-            ]}
-          >
+              </Popconfirm>
+            ]}>
             <Flex vertical>
               {todo.status === 2 && (
-                <p className="text-green-600">{`完成于: ${dayjs(
+                <p className='text-green-600'>{`完成于: ${dayjs(
                   todo.completedTime
                 ).format('MM-D-YYYY - HH:mm:ss')}`}</p>
               )}
@@ -183,11 +180,10 @@ const TodoList: FC = () => {
       />
 
       <Modal
-        title="重新编辑待办"
+        title='重新编辑待办'
         open={open}
         onOk={handleEditConfirm}
-        onCancel={() => setOpen(false)}
-      >
+        onCancel={() => setOpen(false)}>
         <h3>English</h3>
         <TextArea
           showCount
@@ -195,7 +191,7 @@ const TodoList: FC = () => {
           onChange={(event) =>
             setTodo({ ...todo, contentEn: event.target.value })
           }
-          className="h-32 mb-4"
+          className='h-32 mb-4'
         />
         <h3>简体中文</h3>
         <TextArea
@@ -204,19 +200,18 @@ const TodoList: FC = () => {
           onChange={(event) =>
             setTodo({ ...todo, contentZh: event.target.value })
           }
-          className="h-32 mb-4"
+          className='h-32 mb-4'
         />
         <Radio.Group
           onChange={(event) =>
             setTodo({ ...todo, status: parseInt(event.target.value) })
           }
           value={todo.status.toString()}
-          defaultValue={todo.status.toString()}
-        >
-          <Radio.Button value="0">未开始</Radio.Button>
-          <Radio.Button value="1">进行中</Radio.Button>
-          <Radio.Button value="2">已完成</Radio.Button>
-          <Radio.Button value="3">已废弃</Radio.Button>
+          defaultValue={todo.status.toString()}>
+          <Radio.Button value='0'>未开始</Radio.Button>
+          <Radio.Button value='1'>进行中</Radio.Button>
+          <Radio.Button value='2'>已完成</Radio.Button>
+          <Radio.Button value='3'>已废弃</Radio.Button>
         </Radio.Group>
       </Modal>
     </>

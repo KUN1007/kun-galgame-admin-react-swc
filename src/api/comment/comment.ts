@@ -37,7 +37,7 @@ export const updateCommentByCidApi = async (
   const url = `/comment`
   const response = await fetchPut<UpdateCommentResponseData>(url, {
     cid,
-    content,
+    content
   })
   return response
 }

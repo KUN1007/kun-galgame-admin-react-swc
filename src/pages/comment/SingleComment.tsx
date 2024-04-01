@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { List, Avatar, Button, Modal, Input, message } from 'antd'
 import {
   updateCommentByCidApi,
-  deleteCommentByCidApi,
+  deleteCommentByCidApi
 } from '@/api/comment/comment'
 import type { Comment } from '@/api/comment/comment'
 
@@ -15,7 +15,7 @@ interface SingleCommentProps {
 
 export const SingleComment: FC<SingleCommentProps> = ({
   commentList,
-  reload,
+  reload
 }) => {
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -41,7 +41,7 @@ export const SingleComment: FC<SingleCommentProps> = ({
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
-        content: '评论编辑成功',
+        content: '评论编辑成功'
       })
 
       setOpen(false)
@@ -65,41 +65,38 @@ export const SingleComment: FC<SingleCommentProps> = ({
     <>
       {contextHolder}
       <List
-        itemLayout="horizontal"
+        itemLayout='horizontal'
         dataSource={commentList}
-        className="overflow-y-scroll"
+        className='overflow-y-scroll'
         style={{ maxHeight: 'calc(100dvh - 233px)' }}
         pagination={{
           defaultCurrent: 1,
-          total: commentList?.length,
+          total: commentList?.length
         }}
         renderItem={(comment) => (
           <List.Item
             actions={[
               <Button
-                key="edit"
+                key='edit'
                 onClick={() =>
                   handleUpdateComment(comment.cid, comment.content)
-                }
-              >
+                }>
                 编辑
               </Button>,
               <Button
-                key="delete"
+                key='delete'
                 onClick={() =>
                   handleDeleteComment(comment.cid, comment.content)
-                }
-              >
+                }>
                 删除
-              </Button>,
-            ]}
-          >
+              </Button>
+            ]}>
             <List.Item.Meta
               avatar={
                 comment.c_user.avatar ? (
                   <Avatar src={comment.c_user.avatar} />
                 ) : (
-                  <Avatar className="text-white bg-blue-500">
+                  <Avatar className='text-white bg-blue-500'>
                     {comment.c_user.name[0].toUpperCase()}
                   </Avatar>
                 )
@@ -107,39 +104,36 @@ export const SingleComment: FC<SingleCommentProps> = ({
               title={
                 <a
                   href={`https://www.kungal.com/topic/${comment.tid}`}
-                  target="_blank"
-                >
+                  target='_blank'>
                   {`${comment.c_user.name}-${comment.c_user.uid} => ${comment.to_user.name}-${comment.to_user.uid}`}
                 </a>
               }
-              description={<p className="break-words">{comment.content}</p>}
+              description={<p className='break-words'>{comment.content}</p>}
             />
           </List.Item>
         )}
       />
 
       <Modal
-        title="重新编辑评论"
+        title='重新编辑评论'
         open={open}
         onOk={handleEditConfirm}
-        onCancel={() => setOpen(false)}
-      >
+        onCancel={() => setOpen(false)}>
         <TextArea
           showCount
           value={modalText}
           maxLength={107}
           onChange={onChange}
-          className="h-32 mb-4"
+          className='h-32 mb-4'
         />
       </Modal>
 
       <Modal
-        title="删除评论"
+        title='删除评论'
         open={openDelete}
         onOk={handleDeleteConfirm}
-        onCancel={() => setOpenDelete(false)}
-      >
-        <div className="p-4 my-4 border-4 border-blue-100 rounded-lg">
+        onCancel={() => setOpenDelete(false)}>
+        <div className='p-4 my-4 border-4 border-blue-100 rounded-lg'>
           <p>{modalText}</p>
         </div>
         <p>您确定删除评论吗, 该操作不可撤销</p>

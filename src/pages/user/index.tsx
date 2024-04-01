@@ -4,7 +4,7 @@ import { Input, Avatar, Card, Descriptions, Switch, message, Flex } from 'antd'
 import {
   getUserByUid,
   getUserByUsername,
-  updateUserRoles,
+  updateUserRoles
 } from '@/api/user/user'
 import { SingleUser } from './SingleUser'
 import { useUserStore } from '@/store/modules/userStore'
@@ -57,7 +57,7 @@ const UserPage: FC = () => {
     like_topic: [],
     dislike_topic: [],
     upvote_topic: [],
-    reply_topic: [],
+    reply_topic: []
   })
   const [users, setUsers] = useState<UserResponseData[]>([])
 
@@ -66,14 +66,14 @@ const UserPage: FC = () => {
       await updateUserRoles(uid, 2)
       messageApi.open({
         type: 'success',
-        content: `已将用户 ${user.name} 设置为管理员`,
+        content: `已将用户 ${user.name} 设置为管理员`
       })
       setUser({ ...user, roles: 2 })
     } else {
       await updateUserRoles(uid, 1)
       messageApi.open({
         type: 'success',
-        content: `已取消用户 ${user.name} 的管理员`,
+        content: `已取消用户 ${user.name} 的管理员`
       })
       setUser({ ...user, roles: 1 })
     }
@@ -92,7 +92,7 @@ const UserPage: FC = () => {
       return {
         key: (index + 1).toString(),
         label,
-        children: value !== '' ? value : 'NULL',
+        children: value !== '' ? value : 'NULL'
       }
     })
   }
@@ -102,10 +102,14 @@ const UserPage: FC = () => {
     if (isNaN(userUid)) {
       messageApi.open({
         type: 'error',
-        content: '请输入正确的用户 UID',
+        content: '请输入正确的用户 UID'
       })
     } else {
       const response = await getUserByUid(parseInt(value))
+      if (!response.data) {
+        messageApi.error('用户不存在')
+        return
+      }
       setUser(response.data)
     }
   }
@@ -113,11 +117,11 @@ const UserPage: FC = () => {
   const onSearchUserName = async (value: string) => {
     if (value.trim()) {
       const response = await getUserByUsername(value)
-      setUsers(response.data)
+      setUsers(response.data as UserResponseData[])
     } else {
       messageApi.open({
         type: 'error',
-        content: '输入不可为空',
+        content: '输入不可为空'
       })
     }
   }
@@ -126,63 +130,60 @@ const UserPage: FC = () => {
     <>
       {contextHolder}
       <div
-        className="overflow-y-scroll"
-        style={{ maxHeight: 'calc(100dvh - 150px)' }}
-      >
+        className='overflow-y-scroll'
+        style={{ maxHeight: 'calc(100dvh - 150px)' }}>
         <h2>精确查询</h2>
         <Search
-          placeholder="请输入用户的 uid"
+          placeholder='请输入用户的 uid'
           value={uid}
           onChange={(event) => setUid(event.target.value)}
           onSearch={onSearchUserUid}
-          enterButton="确定"
-          className="mb-8"
+          enterButton='确定'
+          className='mb-8'
         />
 
         {user.name && (
           <Card
-            size="small"
+            size='small'
             title={`UID: ${user.uid}`}
             extra={
               <>
                 展示更多信息
                 <Switch
-                  className="ml-4"
-                  onChange={(checked) => setShowInfo(checked)}
-                ></Switch>
+                  className='ml-4'
+                  onChange={(checked) => setShowInfo(checked)}></Switch>
               </>
-            }
-          >
+            }>
             <Meta
               avatar={
                 user.avatar ? (
                   <Avatar size={64} src={user.avatar} />
                 ) : (
-                  <Avatar size={64} className="text-white bg-blue-500">
+                  <Avatar size={64} className='text-white bg-blue-500'>
                     {user.name[0].toUpperCase()}
                   </Avatar>
                 )
               }
               title={
-                <Flex justify="space-between">
+                <Flex justify='space-between'>
                   <a
-                    className="mr-4"
+                    className='mr-4'
                     href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
-                    target="_blank"
-                  >
+                    target='_blank'>
                     {user.name}
                   </a>
 
                   {roles > 2 && user.roles <= 2 && (
                     <div>
-                      <span className="text-sm font-normal">
+                      <span className='text-sm font-normal'>
                         是否设置为管理员
                       </span>
                       <Switch
-                        className="ml-4"
+                        className='ml-4'
                         checked={user.roles >= 2}
-                        onChange={(checked) => onChange(user.uid, checked)}
-                      ></Switch>
+                        onChange={(checked) =>
+                          onChange(user.uid, checked)
+                        }></Switch>
                     </div>
                   )}
                 </Flex>
@@ -191,28 +192,27 @@ const UserPage: FC = () => {
             />
             {showInfo && (
               <Descriptions
-                className="mt-4"
-                title="User Info"
+                className='mt-4'
+                title='User Info'
                 items={userFields(user)}
               />
             )}
           </Card>
         )}
 
-        <h2 className="mt-8">模糊查询</h2>
+        <h2 className='mt-8'>模糊查询</h2>
         <Search
-          placeholder="请输入用户的部分用户名"
+          placeholder='请输入用户的部分用户名'
           value={name}
           onChange={(event) => setName(event.target.value)}
           onSearch={onSearchUserName}
-          enterButton="确定"
-          className="mb-8"
+          enterButton='确定'
+          className='mb-8'
         />
 
         <SingleUser
           userList={users}
-          reload={() => onSearchUserName(name)}
-        ></SingleUser>
+          reload={() => onSearchUserName(name)}></SingleUser>
       </div>
     </>
   )

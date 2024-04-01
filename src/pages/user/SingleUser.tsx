@@ -7,7 +7,7 @@ import {
   Button,
   Flex,
   Switch,
-  Tooltip,
+  Tooltip
 } from 'antd'
 import dayjs from 'dayjs'
 import { useUserStore } from '@/store/modules/userStore'
@@ -30,7 +30,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
     avatar: '',
     bio: '',
     time: 0,
-    status: 0,
+    status: 0
   })
 
   const onChange = async (uid: number, checked: boolean) => {
@@ -38,13 +38,13 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
       await banUserByUid(uid)
       messageApi.open({
         type: 'success',
-        content: '用户已封禁',
+        content: '用户已封禁'
       })
     } else {
       await unbanUserByUid(uid)
       messageApi.open({
         type: 'success',
-        content: '用户已解封',
+        content: '用户已解封'
       })
     }
   }
@@ -56,7 +56,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
       avatar: '',
       bio: '',
       time: 0,
-      status: 0,
+      status: 0
     }
     setUser(userInfo)
     setOpenDelete(true)
@@ -67,7 +67,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
     if (res.code === 200) {
       messageApi.open({
         type: 'success',
-        content: '用户删除成功',
+        content: '用户删除成功'
       })
       setOpenDelete(false)
       reload()
@@ -78,11 +78,11 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
     <>
       {contextHolder}
       <List
-        itemLayout="vertical"
-        size="default"
+        itemLayout='vertical'
+        size='default'
         pagination={{
           defaultCurrent: 1,
-          total: userList?.length,
+          total: userList?.length
         }}
         dataSource={userList}
         renderItem={(user) => (
@@ -92,27 +92,26 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
                 user.avatar ? (
                   <Avatar src={user.avatar} />
                 ) : (
-                  <Avatar className="text-white bg-blue-500">
+                  <Avatar className='text-white bg-blue-500'>
                     {user.name[0].toUpperCase()}
                   </Avatar>
                 )
               }
               title={
-                <Flex justify="space-between">
+                <Flex justify='space-between'>
                   <a
-                    className="mr-4"
+                    className='mr-4'
                     href={`https://www.kungal.com/kungalgamer/${user.uid}/info`}
-                    target="_blank"
-                  >
+                    target='_blank'>
                     {user.name}
                   </a>
 
                   <div>
-                    <Tooltip placement="bottom" title="是否封禁用户">
+                    <Tooltip placement='bottom' title='是否封禁用户'>
                       <Switch
-                        className="shrink-0"
-                        checkedChildren="封禁"
-                        unCheckedChildren="正常"
+                        className='shrink-0'
+                        checkedChildren='封禁'
+                        unCheckedChildren='正常'
                         defaultChecked={user.status === 1}
                         onChange={(checked) => onChange(user.uid, checked)}
                       />
@@ -120,12 +119,11 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
 
                     {roles > 2 && (
                       <Button
-                        type="primary"
-                        className="mx-4"
-                        key="delete"
+                        type='primary'
+                        className='mx-4'
+                        key='delete'
                         danger
-                        onClick={() => handleDeleteUser(user.uid, user.name)}
-                      >
+                        onClick={() => handleDeleteUser(user.uid, user.name)}>
                         删除
                       </Button>
                     )}
@@ -135,7 +133,7 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
               description={user.bio}
             />
             {
-              <Flex justify="space-between">
+              <Flex justify='space-between'>
                 <span>UID: {user.uid}</span>
                 <span>
                   注册时间: {dayjs(user.time).format('MM-D-YYYY - HH:mm:ss')}
@@ -150,9 +148,8 @@ export const SingleUser: FC<UserProps> = ({ userList, reload }) => {
         title={`删除用户: ${user.name}`}
         open={openDelete}
         onOk={handleDeleteConfirm}
-        onCancel={() => setOpenDelete(false)}
-      >
-        <h2 className="font-bold text-red-600">
+        onCancel={() => setOpenDelete(false)}>
+        <h2 className='font-bold text-red-600'>
           严重警告 ⚠ 您确定删除该用户吗, 该操作不可撤销
         </h2>
         <p>

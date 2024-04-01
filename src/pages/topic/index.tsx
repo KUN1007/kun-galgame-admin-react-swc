@@ -34,7 +34,7 @@ const TopicPage: FC = () => {
     } else {
       messageApi.open({
         type: 'error',
-        content: '输入不可为空',
+        content: '输入不可为空'
       })
     }
   }
@@ -45,12 +45,12 @@ const TopicPage: FC = () => {
       <div>
         <h2>请输入话题的内容以查询话题</h2>
         <Search
-          placeholder="input search text"
+          placeholder='input search text'
           value={content}
           onChange={handleContentChange}
           onSearch={onSearchTopic}
-          enterButton="确定"
-          className="mb-8"
+          enterButton='确定'
+          className='mb-8'
         />
 
         <SingleTopic topicList={topics} reload={() => onSearchTopic(content)} />
