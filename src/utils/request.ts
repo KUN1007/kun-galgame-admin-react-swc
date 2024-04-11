@@ -133,4 +133,18 @@ const fetchPostWithFormData = async <T>(
   return await kunFetchRequest<T>(url, options)
 }
 
-export { fetchGet, fetchPost, fetchPut, fetchDelete, fetchPostWithFormData }
+const serializeQueryParams = (searchParams: object) => {
+  return Object.entries(searchParams)
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&')
+}
+
+export {
+  fetchGet,
+  fetchPost,
+  fetchPut,
+  fetchDelete,
+  fetchPostWithFormData,
+  serializeQueryParams
+}

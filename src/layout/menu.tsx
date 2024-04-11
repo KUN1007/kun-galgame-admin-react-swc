@@ -10,6 +10,7 @@ import {
   NotificationOutlined,
   ExclamationCircleOutlined,
   LogoutOutlined,
+  WarningOutlined
 } from '@ant-design/icons'
 import { useUserStore } from '@/store/modules/userStore'
 import { menuItem } from './menuItem'
@@ -23,15 +24,16 @@ const menuItems: MenuProps['items'] = [
   CommentOutlined,
   NotificationOutlined,
   ExclamationCircleOutlined,
-  LogoutOutlined,
+  WarningOutlined,
+  LogoutOutlined
 ].map((icon, index) => ({
   key: menuItem[index].key,
   icon: createElement(icon),
   label: menuItem[index].label,
   children: menuItem[index].children?.map((children) => ({
     key: children.key,
-    label: children.label,
-  })),
+    label: children.label
+  }))
 }))
 
 export const LayoutMenu: FC = function () {
@@ -55,13 +57,12 @@ export const LayoutMenu: FC = function () {
 
   return (
     <>
-      <Menu mode="inline" items={menuItems} onClick={handleMenuClick} />
+      <Menu mode='inline' items={menuItems} onClick={handleMenuClick} />
 
       <Modal
         open={isModalOpen}
         onOk={handleOk}
-        onCancel={() => setIsModalOpen(false)}
-      >
+        onCancel={() => setIsModalOpen(false)}>
         <h2>确定退出登录吗</h2>
         <p>通常情况下登录状态将会持续一周</p>
       </Modal>
