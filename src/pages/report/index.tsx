@@ -33,12 +33,15 @@ const ReportPage = () => {
     }
     return 'all'
   })
-  const [pageSize, setPageSize] = useState(
-    () => Number(searchParams.get('ps')) ?? 15
-  )
-  const [pageNumber, setPageNumber] = useState(
-    () => Number(searchParams.get('pn')) ?? 1
-  )
+  const [pageSize, setPageSize] = useState(() => {
+    const size = Number(searchParams.get('ps'))
+    return size > 0 ? size : 15
+  })
+
+  const [pageNumber, setPageNumber] = useState(() => {
+    const number = Number(searchParams.get('pn'))
+    return number > 0 ? number : 1
+  })
 
   const {
     data: resData,

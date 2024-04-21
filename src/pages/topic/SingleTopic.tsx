@@ -115,8 +115,6 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
   }
 
   const handleDeleteConfirm = async () => {
-    console.log(topicData.tid)
-
     const res = await deleteTopicByTidApi(topicData.tid)
     if (res.code === 200) {
       messageApi.open({

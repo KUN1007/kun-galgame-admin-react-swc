@@ -31,8 +31,6 @@ const LoginPage: React.FC = () => {
       password: state.password
     })
 
-    console.log(userInfo)
-
     if (userInfo.data) {
       navigate('/overview')
       userStore.setInfo(userInfo.data)

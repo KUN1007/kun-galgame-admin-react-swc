@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
-    },
+      '@': resolve(__dirname, './src')
+    }
   },
-  server: { host: '127.0.0.1', port: 8888 },
+  esbuild: {
+    drop: ['console', 'debugger']
+  },
+  server: { host: '127.0.0.1', port: 8888 }
 })
