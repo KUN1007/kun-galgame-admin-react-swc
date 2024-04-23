@@ -35,8 +35,11 @@ const NonMoePage: FC = () => {
     nid: 0,
     uid: 0,
     name: '',
-    description_en_us: '',
-    description_zh_cn: '',
+    description: {
+      'en-us': '',
+      'ja-jp': '',
+      'zh-cn': ''
+    },
     time: 0,
     result: ''
   })
@@ -56,8 +59,8 @@ const NonMoePage: FC = () => {
     if (
       nonMoe.uid === 0 ||
       nonMoe.name.trim() === '' ||
-      nonMoe.description_en_us.trim() === '' ||
-      nonMoe.description_zh_cn.trim() === '' ||
+      nonMoe.description['en-us'].trim() === '' ||
+      nonMoe.description['zh-cn'].trim() === '' ||
       nonMoe.time === 0 ||
       (resultType === 0 && nonMoe.result === '')
     ) {
@@ -82,8 +85,7 @@ const NonMoePage: FC = () => {
     const nonMoeData: NonMoeRequestData = {
       uid: nonMoe.uid,
       name: nonMoe.name,
-      description_en_us: nonMoe.description_en_us,
-      description_zh_cn: nonMoe.description_zh_cn,
+      description: nonMoe.description,
       time: nonMoe.time,
       result:
         resultType === 0
@@ -102,8 +104,11 @@ const NonMoePage: FC = () => {
       nid: 0,
       uid: 0,
       name: '',
-      description_en_us: '',
-      description_zh_cn: '',
+      description: {
+        'en-us': '',
+        'ja-jp': '',
+        'zh-cn': ''
+      },
       time: 0,
       result: ''
     })
@@ -166,18 +171,30 @@ const NonMoePage: FC = () => {
         <Flex>
           <TextArea
             className='mb-4 mr-4'
-            value={nonMoe.description_en_us}
+            value={nonMoe.description['en-us']}
             onChange={(event) =>
-              setNonMoe({ ...nonMoe, description_en_us: event.target.value })
+              setNonMoe({
+                ...nonMoe,
+                description: {
+                  ...nonMoe.description,
+                  'en-us': event.target.value
+                }
+              })
             }
             rows={6}
-            placeholder='Publishment description in English'
+            placeholder='Punishment description in English'
           />
           <TextArea
             className='mb-4'
-            value={nonMoe.description_zh_cn}
+            value={nonMoe.description['zh-cn']}
             onChange={(event) =>
-              setNonMoe({ ...nonMoe, description_zh_cn: event.target.value })
+              setNonMoe({
+                ...nonMoe,
+                description: {
+                  ...nonMoe.description,
+                  'zh-cn': event.target.value
+                }
+              })
             }
             rows={6}
             placeholder='处罚描述（中文版）'

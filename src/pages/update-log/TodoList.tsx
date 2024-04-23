@@ -35,25 +35,38 @@ const getStatus = (status: number) => {
   }
 }
 
+const isValidKunLanguage = (language: KunLanguage, maxLength: number) => {
+  const values = Object.values(language)
+  const isNotEmpty = values.some((value) => value.trim() !== '')
+  const isWithinLengthLimit = values.every((value) => value.length <= maxLength)
+  return isNotEmpty && isWithinLengthLimit
+}
+
 const TodoList: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const [open, setOpen] = useState(false)
   const [todo, setTodo] = useState<UpdateTodoRequestData>({
     todoId: 0,
-    contentEn: '',
-    contentZh: '',
+    content: {
+      'en-us': '',
+      'ja-jp': '',
+      'zh-cn': ''
+    },
     status: 0
   })
   const [todos, setTodos] = useState<Todo[]>([])
 
   const handleAddTodo = async () => {
-    if (todo.contentEn.trim() !== '' && todo.contentZh.trim() !== '') {
+    if (isValidKunLanguage(todo.content, 233)) {
       await createTodoApi(todo)
       setTodo({
         todoId: 0,
-        contentEn: '',
-        contentZh: '',
+        content: {
+          'en-us': '',
+          'ja-jp': '',
+          'zh-cn': ''
+        },
         status: 0
       })
 
@@ -106,7 +119,13 @@ const TodoList: FC = () => {
       <Flex className='w-full'>
         <Input
           onChange={(event) =>
-            setTodo({ ...todo, contentEn: event.target.value })
+            setTodo({
+              ...todo,
+              content: {
+                ...todo.content,
+                'en-us': event.target.value
+              }
+            })
           }
           placeholder='English'
           className='mb-4'
@@ -114,7 +133,13 @@ const TodoList: FC = () => {
         />
         <Input
           onChange={(event) =>
-            setTodo({ ...todo, contentZh: event.target.value })
+            setTodo({
+              ...todo,
+              content: {
+                ...todo.content,
+                'zh-cn': event.target.value
+              }
+            })
           }
           placeholder='中文版'
           className='mb-4 ml-4'
@@ -159,7 +184,7 @@ const TodoList: FC = () => {
               <Popconfirm
                 key={todo.todoId}
                 title='删除待办'
-                description={`确定删除 ${todo.contentZh} 吗`}
+                description={`确定删除 ${todo.content['zh-cn']} 吗`}
                 onConfirm={() => confirmDelete(todo.todoId)}
                 okText='Yes'
                 cancelText='No'>
@@ -172,8 +197,8 @@ const TodoList: FC = () => {
                   todo.completedTime
                 ).format('MM-D-YYYY - HH:mm:ss')}`}</p>
               )}
-              <p>{todo.contentEn}</p>
-              <p>{todo.contentZh}</p>
+              <p>{todo.content['en-us']}</p>
+              <p>{todo.content['zh-cn']}</p>
             </Flex>
           </List.Item>
         )}
@@ -187,18 +212,30 @@ const TodoList: FC = () => {
         <h3>English</h3>
         <TextArea
           showCount
-          value={todo.contentEn}
+          value={todo.content['en-us']}
           onChange={(event) =>
-            setTodo({ ...todo, contentEn: event.target.value })
+            setTodo({
+              ...todo,
+              content: {
+                ...todo.content,
+                'en-us': event.target.value
+              }
+            })
           }
           className='h-32 mb-4'
         />
         <h3>简体中文</h3>
         <TextArea
           showCount
-          value={todo.contentZh}
+          value={todo.content['zh-cn']}
           onChange={(event) =>
-            setTodo({ ...todo, contentZh: event.target.value })
+            setTodo({
+              ...todo,
+              content: {
+                ...todo.content,
+                'zh-cn': event.target.value
+              }
+            })
           }
           className='h-32 mb-4'
         />

@@ -3,22 +3,19 @@ import { fetchDelete, fetchGet, fetchPost, fetchPut } from '@/utils/request'
 export interface Todo {
   todoId: number
   status: number
-  contentEn: string
-  contentZh: string
+  content: KunLanguage
   time: number
   completedTime: number
 }
 
 export interface CreateTodoRequestData {
-  contentEn: string
-  contentZh: string
+  content: KunLanguage
   status: number
 }
 
 export interface UpdateTodoRequestData {
   todoId: number
-  contentEn: string
-  contentZh: string
+  content: KunLanguage
   status: number
 }
 
@@ -36,8 +33,7 @@ export type UpdateType =
 
 export interface UpdateLogRequestData {
   type: UpdateType
-  contentEn: string
-  contentZh: string
+  content: KunLanguage
   time: string
   version: string
 }

@@ -35,8 +35,11 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
     nid: 0,
     uid: 0,
     name: '',
-    description_en_us: '',
-    description_zh_cn: '',
+    description: {
+      'en-us': '',
+      'ja-jp': '',
+      'zh-cn': ''
+    },
     time: 0,
     result: ''
   })
@@ -60,8 +63,11 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
       nid,
       uid: 0,
       name,
-      description_en_us: '',
-      description_zh_cn: '',
+      description: {
+        'en-us': '',
+        'ja-jp': '',
+        'zh-cn': ''
+      },
       time: 0,
       result: ''
     }
@@ -73,8 +79,8 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
     if (
       nonMoe.uid === 0 ||
       nonMoe.name.trim() === '' ||
-      nonMoe.description_en_us.trim() === '' ||
-      nonMoe.description_zh_cn.trim() === '' ||
+      nonMoe.description['en-us'].trim() === '' ||
+      nonMoe.description['zh-cn'].trim() === '' ||
       nonMoe.time === 0 ||
       (resultType === 0 && (nonMoe.result === '' || nonMoe.result === null))
     ) {
@@ -99,8 +105,7 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
     const nonMoeData: NonMoeRequestData = {
       uid: nonMoe.uid,
       name: nonMoe.name,
-      description_en_us: nonMoe.description_en_us,
-      description_zh_cn: nonMoe.description_zh_cn,
+      description: nonMoe.description,
       time: nonMoe.time,
       result:
         resultType === 0
@@ -124,8 +129,11 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
       nid: 0,
       uid: 0,
       name: '',
-      description_en_us: '',
-      description_zh_cn: '',
+      description: {
+        'en-us': '',
+        'ja-jp': '',
+        'zh-cn': ''
+      },
       time: 0,
       result: ''
     })
@@ -199,8 +207,8 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
             />
             {
               <Flex vertical>
-                <span>中文描述: {record.description_zh_cn}</span>
-                <span>英文描述: {record.description_en_us}</span>
+                <span>中文描述: {record.description['zh-cn']}</span>
+                <span>英文描述: {record.description['en-us']}</span>
               </Flex>
             }
             {
@@ -251,9 +259,15 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
           <TextArea
             showCount
             maxLength={1000}
-            value={nonMoe.description_zh_cn}
+            value={nonMoe.description['zh-cn']}
             onChange={(event) =>
-              setNonMoe({ ...nonMoe, description_zh_cn: event.target.value })
+              setNonMoe({
+                ...nonMoe,
+                description: {
+                  ...nonMoe.description,
+                  'zh-cn': event.target.value
+                }
+              })
             }
           />
         </Flex>
@@ -263,9 +277,15 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
           <TextArea
             showCount
             maxLength={1000}
-            value={nonMoe.description_en_us}
+            value={nonMoe.description['en-us']}
             onChange={(event) =>
-              setNonMoe({ ...nonMoe, description_en_us: event.target.value })
+              setNonMoe({
+                ...nonMoe,
+                description: {
+                  ...nonMoe.description,
+                  'en-us': event.target.value
+                }
+              })
             }
           />
         </Flex>
