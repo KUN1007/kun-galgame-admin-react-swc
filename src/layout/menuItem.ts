@@ -14,6 +14,10 @@ export const menuItem: MenuItem[] = [
     label: '用户管理'
   },
   {
+    key: 'galgame',
+    label: 'Galgame 管理'
+  },
+  {
     key: 'topic',
     label: '话题管理'
   },
