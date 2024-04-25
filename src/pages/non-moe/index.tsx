@@ -151,7 +151,10 @@ const NonMoePage: FC = () => {
       <div
         className='overflow-y-scroll'
         style={{ maxHeight: 'calc(100dvh - 150px)' }}>
-        <h2>根据用户uid进行查询</h2>
+        <h1 className='mb-8'>不萌记录</h1>
+        <p>该页面并不完整, 所有的操作效果只是创建记录, 并不会实际生效</p>
+        <p>如果有用户违规, 提醒过后依旧违规, 直接封禁即可</p>
+        <h2 className='mt-8'>根据用户uid进行查询</h2>
         <Search
           placeholder='请输入用户的 uid'
           value={uid}

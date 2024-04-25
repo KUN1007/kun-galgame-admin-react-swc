@@ -48,12 +48,12 @@ export const menuItem: MenuItem[] = [
     ]
   },
   {
-    key: 'info',
-    label: '操作记录'
-  },
-  {
     key: 'report',
     label: '举报管理'
+  },
+  {
+    key: 'info',
+    label: '操作记录'
   },
   {
     key: 'logout',

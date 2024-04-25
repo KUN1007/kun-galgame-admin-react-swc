@@ -4,12 +4,13 @@ import { Menu, Modal } from 'antd'
 import {
   BarChartOutlined,
   UserOutlined,
+  ProductOutlined,
   FileTextOutlined,
   RollbackOutlined,
   CommentOutlined,
   NotificationOutlined,
-  ExclamationCircleOutlined,
   LogoutOutlined,
+  ExclamationCircleOutlined,
   WarningOutlined
 } from '@ant-design/icons'
 import { useUserStore } from '@/store/modules/userStore'
@@ -19,12 +20,13 @@ import type { MenuProps } from 'antd'
 const menuItems: MenuProps['items'] = [
   BarChartOutlined,
   UserOutlined,
+  ProductOutlined,
   FileTextOutlined,
   RollbackOutlined,
   CommentOutlined,
   NotificationOutlined,
-  ExclamationCircleOutlined,
   WarningOutlined,
+  ExclamationCircleOutlined,
   LogoutOutlined
 ].map((icon, index) => ({
   key: menuItem[index].key,
