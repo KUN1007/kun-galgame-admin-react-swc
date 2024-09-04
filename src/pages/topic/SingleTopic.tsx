@@ -266,7 +266,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
           }
           className='h-64 mb-4'
         />
-        <h4 className='font-bold'>标签（注意，标签必须用英文逗号分隔）</h4>
+        <h4 className='font-bold'>标签 (注意，标签必须用英文逗号分隔)</h4>
         <Input
           showCount
           value={topicData.tags}
@@ -276,7 +276,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
           className='h-8 mb-4'
         />
         <h4 className='font-bold'>
-          分类（注意, 分类一旦选择了 Others, 则不能选择其它两项）
+          分类 (注意, 分类一旦选择了 Others, 则不能选择 Galgame)
         </h4>
         {categories.map((cat) => (
           <CheckableTag
@@ -286,7 +286,7 @@ export const SingleTopic: FC<TopicProps> = ({ topicList, reload }) => {
             {cat}
           </CheckableTag>
         ))}
-        <h4 className='mt-4 font-bold'>分区（注意, 一个分类只能有一个分区）</h4>
+        <h4 className='mt-4 font-bold'>分区 (注意, 一个分类只能有一个分区)</h4>
 
         <Checkbox.Group
           options={section}
