@@ -90,8 +90,11 @@ const MessageAdminPage: FC = () => {
               </Popconfirm>
             ]}>
             <Flex vertical>
-              <p>{msg.content['en-us']}</p>
-              <p>{msg.content['zh-cn']}</p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: msg.content['zh-cn']
+                }}
+              />
             </Flex>
           </List.Item>
         )}
