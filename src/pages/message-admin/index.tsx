@@ -63,6 +63,14 @@ const MessageAdminPage: FC = () => {
       {contextHolder}
       <h2>发布全体消息</h2>
 
+      <a
+        className='font-bold'
+        href='https://www.wangeditor.com/demo/get-html.html'
+        target='_blank'
+        rel='noopener noreferrer'>
+        参考 HTML 编辑网站
+      </a>
+
       <List
         bordered
         dataSource={messages}
