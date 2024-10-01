@@ -51,7 +51,8 @@ const TodoList: FC = () => {
     content: {
       'en-us': '',
       'ja-jp': '',
-      'zh-cn': ''
+      'zh-cn': '',
+      'zh-tw': ''
     },
     status: 0
   })
@@ -65,7 +66,8 @@ const TodoList: FC = () => {
         content: {
           'en-us': '',
           'ja-jp': '',
-          'zh-cn': ''
+          'zh-cn': '',
+          'zh-tw': ''
         },
         status: 0
       })

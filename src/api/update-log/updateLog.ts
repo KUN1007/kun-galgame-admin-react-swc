@@ -38,7 +38,6 @@ export interface UpdateLogRequestData {
   version: string
 }
 
-export type Language = 'en-us' | 'zh-cn'
 export type GetTodosResponseData = KUNGalgameResponseData<Todo[]>
 export type UpdateResponseData = KUNGalgameResponseData<null>
 

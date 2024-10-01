@@ -33,7 +33,8 @@ const BillList: FC = () => {
     reason: {
       'en-us': '',
       'ja-jp': '',
-      'zh-cn': ''
+      'zh-cn': '',
+      'zh-tw': ''
     },
     time: Date.now(),
     status: 0

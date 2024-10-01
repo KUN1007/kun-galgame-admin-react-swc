@@ -38,7 +38,8 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
     description: {
       'en-us': '',
       'ja-jp': '',
-      'zh-cn': ''
+      'zh-cn': '',
+      'zh-tw': ''
     },
     time: 0,
     result: ''
@@ -66,7 +67,8 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
       description: {
         'en-us': '',
         'ja-jp': '',
-        'zh-cn': ''
+        'zh-cn': '',
+        'zh-tw': ''
       },
       time: 0,
       result: ''
@@ -132,7 +134,8 @@ export const SingleNonMoe: FC<NonMoeProps> = ({ nonMoeList, reload }) => {
       description: {
         'en-us': '',
         'ja-jp': '',
-        'zh-cn': ''
+        'zh-cn': '',
+        'zh-tw': ''
       },
       time: 0,
       result: ''

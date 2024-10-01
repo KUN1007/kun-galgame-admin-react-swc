@@ -18,7 +18,8 @@ const UpdateLogPage: FC = () => {
     content: {
       'en-us': '',
       'ja-jp': '',
-      'zh-cn': ''
+      'zh-cn': '',
+      'zh-tw': ''
     },
     time: '',
     version: ','
@@ -40,7 +41,8 @@ const UpdateLogPage: FC = () => {
       content: {
         'en-us': '',
         'ja-jp': '',
-        'zh-cn': ''
+        'zh-cn': '',
+        'zh-tw': ''
       },
       time: '',
       version: ','

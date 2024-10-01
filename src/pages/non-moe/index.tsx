@@ -38,7 +38,8 @@ const NonMoePage: FC = () => {
     description: {
       'en-us': '',
       'ja-jp': '',
-      'zh-cn': ''
+      'zh-cn': '',
+      'zh-tw': ''
     },
     time: 0,
     result: ''
@@ -107,7 +108,8 @@ const NonMoePage: FC = () => {
       description: {
         'en-us': '',
         'ja-jp': '',
-        'zh-cn': ''
+        'zh-cn': '',
+        'zh-tw': ''
       },
       time: 0,
       result: ''
