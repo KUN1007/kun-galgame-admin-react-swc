@@ -44,6 +44,10 @@ export const menuItem: MenuItem[] = [
       {
         key: 'notice/balance',
         label: '收支公示'
+      },
+      {
+        key: 'notice/message-admin',
+        label: '全体消息'
       }
     ]
   },

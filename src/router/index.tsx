@@ -43,6 +43,10 @@ const rootRoutes: RouteObject[] = [
           {
             path: 'balance',
             element: lazyLoad(lazy(() => import('@/pages/balance')))
+          },
+          {
+            path: 'message-admin',
+            element: lazyLoad(lazy(() => import('@/pages/message-admin')))
           }
         ]
       },
