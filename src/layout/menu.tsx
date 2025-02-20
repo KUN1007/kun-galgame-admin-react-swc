@@ -11,6 +11,7 @@ import {
   NotificationOutlined,
   LogoutOutlined,
   ExclamationCircleOutlined,
+  SettingOutlined,
   WarningOutlined
 } from '@ant-design/icons'
 import { useUserStore } from '@/store/modules/userStore'
@@ -27,6 +28,7 @@ const menuItems: MenuProps['items'] = [
   NotificationOutlined,
   WarningOutlined,
   ExclamationCircleOutlined,
+  SettingOutlined,
   LogoutOutlined
 ].map((icon, index) => ({
   key: menuItem[index].key,

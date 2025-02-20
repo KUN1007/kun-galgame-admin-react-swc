@@ -60,6 +60,10 @@ export const menuItem: MenuItem[] = [
     label: '操作记录'
   },
   {
+    key: 'setting',
+    label: '网站设置'
+  },
+  {
     key: 'logout',
     label: '退出登录'
   }
